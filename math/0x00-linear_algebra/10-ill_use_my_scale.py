@@ -2,7 +2,6 @@
 """
 gets the shape with numpy
 """
-import numpy
 
 
 def np_shape(matrix):
