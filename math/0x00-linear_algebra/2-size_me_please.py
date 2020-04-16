@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+hola
+"""
+
+
 def _matrix_shape(matrix):
     """
     wrapper for keep shape state
@@ -11,7 +16,15 @@ def _matrix_shape(matrix):
         return shape
 
 
+"""
+hola
+"""
+
+
 def matrix_shape(matrix):
+    """
+    hola
+    """
     global shape
     shape = [len(matrix)]
     return _matrix_shape(matrix)
