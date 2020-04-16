@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-hola
+wrapper
 """
 
 
@@ -17,13 +17,13 @@ def _matrix_shape(matrix):
 
 
 """
-hola
+main
 """
 
 
 def matrix_shape(matrix):
     """
-    hola
+    main
     """
     global shape
     shape = [len(matrix)]
