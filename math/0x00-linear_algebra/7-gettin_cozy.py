@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import copy
 """
 wrapper
 """
@@ -87,11 +86,15 @@ def cat_matrices2D(mat1, mat2, axis=0):
     """
     main
     """
+    newMat1 = []
+    newMat2 = []
+    for i in mat1:
+        newMat1.append(i[:])
+    for i in mat2:
+        newMat2.append(i[:])
     if axis == 0:
-        newList = copy.deepcopy(mat1) + copy.deepcopy(mat2)
+        newList = newMat1 + newMat2
         return newList
     if axis == 1:
-        newMat1 = copy.deepcopy(mat1)
-        newMat2 = copy.deepcopy(mat2)
         flatList = [i + j for i, j in zip(newMat1, newMat2)]
         return flatList
