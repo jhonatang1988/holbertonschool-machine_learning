@@ -50,6 +50,9 @@ adds two 2d matrices
 
 
 def add_matrices2D(mat1, mat2):
+    """
+    main
+    """
     if matrix_shape(mat1) != matrix_shape(mat2):
         return None
     twodimadded = []
