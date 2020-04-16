@@ -50,12 +50,13 @@ adds two 2d matrices
 
 
 def add_matrices2D(mat1, mat2):
-    twodimadded = []
     if matrix_shape(mat1) != matrix_shape(mat2):
         return None
+    twodimadded = []
     flatList = [i + j for i, j in zip(mat1, mat2)]
-    alist = [sum(flatList[0][::2]), sum(flatList[0][1::2])]
-    blist = [sum(flatList[1][::2]), sum(flatList[1][1::2])]
-    twodimadded.append(alist)
-    twodimadded.append(blist)
+    for i in flatList:
+        onedimadded = []
+        for j in range(len(mat1[0])):
+            onedimadded.append(sum(i[j::len(mat1[0])]))
+        twodimadded.append(onedimadded)
     return twodimadded
