@@ -96,5 +96,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
         newList = newMat1 + newMat2
         return newList
     if axis == 1:
+        if len(newMat1) != len(newMat2):
+            return None
         flatList = [i + j for i, j in zip(newMat1, newMat2)]
         return flatList
