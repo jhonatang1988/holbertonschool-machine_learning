@@ -13,6 +13,6 @@ def np_slice(matrix, axes={}):
         if i in axes:
             alist.append(slice(*axes[i]))
         else:
-            alist.append(None)
+            alist.append(slice(None))
     atuple = tuple(alist)
     return matrix[atuple]
