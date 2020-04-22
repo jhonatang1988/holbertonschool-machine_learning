@@ -23,3 +23,5 @@ plt.yticks(range(0, 81, 10))
 plt.legend(loc='upper right')
 plt.ylabel('Quantity of Fruit')
 plt.title('Number of Fruit per Person')
+
+plt.show()

@@ -17,3 +17,5 @@ plt.xlabel('Time (years)')
 plt.ylabel('Fraction Remaining')
 plt.title('Exponential Decay of Radioactive Elements')
 plt.legend(loc='upper right')
+
+plt.show()

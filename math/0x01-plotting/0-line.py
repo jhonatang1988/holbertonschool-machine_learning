@@ -4,3 +4,5 @@ import matplotlib.pyplot as plt
 
 y = np.arange(0, 11) ** 3
 plt.plot(y, 'r')
+
+plt.show()
