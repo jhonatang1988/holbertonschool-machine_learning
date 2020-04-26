@@ -20,8 +20,8 @@ def poly_derivative(poly):
     if (type(poly) is not list or len(poly) == 0):
         return None
 
-    for el in poly:
-        if (type(el) is not int and type(el) is not float):
+    for elem in poly:
+        if (type(elem) is not int and type(elem) is not float):
             return None
 
     if (len(poly) == 1):
