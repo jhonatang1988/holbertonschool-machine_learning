@@ -17,7 +17,7 @@ def poly_derivative(poly):
     :param poly: polynomial
     :return: derivative of polynomial
     """
-    if type(poly) is not list or not poly:
+    if type(poly) is not list or len(poly) == 0:
         return None
 
     if len(poly) == 1:
