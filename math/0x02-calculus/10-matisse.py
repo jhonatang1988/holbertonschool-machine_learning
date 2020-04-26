@@ -23,11 +23,13 @@ def poly_derivative(poly):
     if len(poly) == 1:
         return [0]
 
+    for num in poly:
+        if num is not int or num is not float:
+            return None
+
     derivative = []
     for i in range(len(poly) - 1, 0, -1):
         # print('poly[i]: {} i: {}'.format(poly[i], i))
-        if poly[i] is not int or poly[i] is not float:
-            return None
         derivative.append(poly[i] * i)
     derivative.reverse()
     return derivative
