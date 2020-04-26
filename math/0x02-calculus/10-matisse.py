@@ -19,7 +19,7 @@ def poly_derivative(poly):
     """
     derivative = []
     for i in range(len(poly) - 1, 0, -1):
-        print('poly[i]: {} i: {}'.format(poly[i], i))
+        # print('poly[i]: {} i: {}'.format(poly[i], i))
         derivative.append(poly[i] * i)
     derivative.reverse()
     return derivative
