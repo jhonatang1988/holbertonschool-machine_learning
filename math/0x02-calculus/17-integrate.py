@@ -4,22 +4,22 @@ get the integrate
 """
 
 
-# poly = [5, 3, 0, 1]
-# [0, 5, 1.5, 0, 0.25]
-
 def poly_integral(poly, C=0):
     """
     :param poly: polynomial
     :param C: constant
     :return: integrate
     """
-    if type(poly) is not list or len(poly) == 0 or (type(C) is not int and \
+    if type(poly) is not list or len(poly) == 0 or (type(C) is not int and
                                                     type(C) is not float):
         return None
 
     for num in poly:
         if type(num) is not int and type(num) is not float:
             return None
+
+    if poly == [0]:
+        return [C]
 
     preintegrate = []
     integrate = []
