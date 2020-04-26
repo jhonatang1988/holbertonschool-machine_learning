@@ -13,8 +13,8 @@ def poly_integral(poly, C=0):
     :param C: constant
     :return: integrate
     """
-    if type(poly) is not list or len(poly) == 0 or type(C) is not int or \
-            type(C) is not float:
+    if type(poly) is not list or len(poly) == 0 or (type(C) is not int and \
+                                                    type(C) is not float):
         return None
 
     for num in poly:
