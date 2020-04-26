@@ -24,7 +24,7 @@ def poly_derivative(poly):
         return [0]
 
     for num in poly:
-        if num is not int or num is not float:
+        if type(num) is not int or type(num) is not float:
             return None
 
     derivative = []
