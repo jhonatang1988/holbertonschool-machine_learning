@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 derivatives for polys
+[5, 3, 0, 1]
 """
 
 
@@ -10,7 +11,9 @@ def poly_derivative(poly):
     :param poly: polynomial
     :return: derivative of polynomial
     """
-    derivates = []
+    derivative = []
     for i in range(len(poly) - 1, 0, -1):
-        derivates.append(poly[i] * i)
-    return derivates
+        print(i)
+        derivative.append(poly[i] * i)
+    derivative.reverse()
+    return derivative
