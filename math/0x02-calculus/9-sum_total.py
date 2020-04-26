@@ -34,6 +34,5 @@ def summation_i_squared(n):
 
     if n < 1 or n is None:
         return None
-    else:
-        _summation_i_squared(1)
-        return result
+    _summation_i_squared(1)
+    return result
