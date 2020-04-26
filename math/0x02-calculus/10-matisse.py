@@ -17,14 +17,14 @@ def poly_derivative(poly):
     :param poly: polynomial
     :return: derivative of polynomial
     """
-    if type(poly) is not list or len(poly) == 0:
+    if (type(poly) is not list or len(poly) == 0):
         return None
 
-    for num in poly:
-        if type(num) is not int and type(num) is not float:
+    for el in poly:
+        if (type(el) is not int and type(el) is not float):
             return None
 
-    if len(poly) == 1:
+    if (len(poly) == 1):
         return [0]
 
     derivative = []
