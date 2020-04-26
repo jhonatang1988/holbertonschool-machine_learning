@@ -32,7 +32,7 @@ def summation_i_squared(n):
     counter = 1
     result = 0
 
-    if n < 1:
+    if n < 1 or n is None:
         return None
     _summation_i_squared(1)
     return result
