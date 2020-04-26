@@ -17,12 +17,8 @@ def poly_derivative(poly):
     :param poly: polynomial
     :return: derivative of polynomial
     """
-    if type(poly) is not list or len(poly) == 0:
+    if type(poly) is not list or not poly:
         return None
-
-    for elem in poly:
-        if type(elem) is not int and type(elem) is not float:
-            return None
 
     if len(poly) == 1:
         return [0]
@@ -30,6 +26,8 @@ def poly_derivative(poly):
     derivative = []
     for i in range(len(poly) - 1, 0, -1):
         # print('poly[i]: {} i: {}'.format(poly[i], i))
+        if poly[i] is not int or poly[i] is not float:
+            return None
         derivative.append(poly[i] * i)
     derivative.reverse()
     return derivative
