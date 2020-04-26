@@ -29,6 +29,7 @@ student_grades = np.random.normal(68, 15, 50)
 
 mpl.rcParams['axes.titlesize'] = 'x-small'
 mpl.rcParams['axes.labelsize'] = 'x-small'
+mpl.rcParams['axes.legendssize'] = 'x-small'
 fig = plt.figure(constrained_layout=True)
 
 gs = GridSpec(3, 2, figure=fig)
