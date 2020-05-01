@@ -44,7 +44,7 @@ class Binomial:
             raise ValueError('p must be greater than 0 and less than 1')
         elif data is None:
             self.n = toint(n)
-            self.p = toint(p)
+            self.p = toFloat(p)
         elif type(data) is not list:
             raise TypeError('data must be a list')
         elif len(data) < 2:
