@@ -20,6 +20,9 @@ class Normal:
     normal distribution
     """
 
+    e = 2.7182818285
+    pi = 3.1415926536
+
     def __init__(self, data=None, mean=0., stddev=1.):
         """
         :param data: list of the data to be used to estimate the distribution
@@ -55,3 +58,12 @@ class Normal:
         :return: the value of z_score
         """
         return self.mean + (z * self.stddev)
+
+    def pdf(self, x):
+        """
+        :param x: x-value
+        :return: PDF value for x
+        """
+        return (1 / (self.stddev * ((2 * Normal.pi) ** (1 / 2)))) * \
+               (Normal.e ** (-((x - self.mean) ** 2) / (2 * (self.stddev **
+                                                             2))))
