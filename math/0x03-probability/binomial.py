@@ -57,7 +57,7 @@ class Binomial:
             variance = variance / len(data)
             self.p = 1 - (variance / self.mean)
             try:
-                self.n = int(round(self.mean / self.p))
-                self.p = (self.mean / self.n)
+                self.n = toint(round(self.mean / self.p))
+                self.p = toFloat(self.mean / self.n)
             except TypeError:
                 print('could not convert to int')
