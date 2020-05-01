@@ -41,3 +41,17 @@ class Normal:
             for i in data:
                 total += (float(i) - self.mean) ** 2
             self.stddev = (total / len(data)) ** (1 / 2)
+
+    def z_score(self, x):
+        """
+        :param x: x-value
+        :return: z-score of x
+        """
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """
+        :param z: the z-score
+        :return: the value of z_score
+        """
+        return self.mean + (z * self.stddev)
