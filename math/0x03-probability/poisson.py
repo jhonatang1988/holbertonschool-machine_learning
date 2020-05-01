@@ -14,12 +14,11 @@ class Poisson:
         :param data: data
         :param lambtha: expected number of ocurrences
         """
-        if len(data) < 2:
-            self.data = data
-        else:
-            raise ValueError('data must contain multiple values')
-        if lambtha >= 0:
-            self.lambtha = float(sum(data) / len(data)) if data is not None else \
-                float(lambtha)
-        else:
+        if data is None:
+            self.lambtha = float(lambtha)
+        elif type(data) is not list:
             raise TypeError('data must be a list')
+        elif len(data) < 2:
+            raise ValueError('data must contain multiple values')
+        else:
+            self.lambtha = float(sum(data) / len(data))
