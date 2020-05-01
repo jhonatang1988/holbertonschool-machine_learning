@@ -39,6 +39,10 @@ class Exponential:
             self.lambtha = float(1 / (sum(data) / len(data)))
 
     def pdf(self, x):
+        """
+        :param x: time period
+        :return: the probability density function
+        """
         if x < 0:
             return 0
         return (Exponential.e ** (-self.lambtha * x)) * self.lambtha
