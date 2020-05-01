@@ -28,6 +28,11 @@ class Poisson:
             self.lambtha = float(sum(data) / len(data))
 
     def pmf(self, k):
+        """
+        probability mass function
+        :param k: number of successes
+        :return: pmf
+        """
         try:
             k = int(k)
             if k < 0:
