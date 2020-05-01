@@ -38,6 +38,6 @@ class Normal:
         else:
             total = 0.0
             self.mean = sum(data) / len(data)
-            for i in range(len(data)):
-                total += toFloat((data[i] - self.mean) ** 2)
-                self.stddev = (total / float(len(data) - 1)) ** 1 / 2
+            for i in data:
+                total += (float(i) - self.mean) ** 2
+            self.stddev = (total / len(data)) ** (1 / 2)
