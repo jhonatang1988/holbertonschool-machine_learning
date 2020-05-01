@@ -4,6 +4,14 @@ represents a poisson distribution
 """
 
 
+def toint(k):
+    try:
+        k = int(k)
+        return k
+    except TypeError:
+        print('value must be an integer or float')
+
+
 class Poisson:
     """
     poisson distribution class
@@ -33,15 +41,20 @@ class Poisson:
         :param k: number of successes
         :return: pmf
         """
-        try:
-            k = int(k)
-            if k < 0:
-                return 0
-        except TypeError:
-            print('value must be an integer or float')
-
+        if k < 0:
+            return 0
+        k = toint(k)
         fact = 1
         for i in range(1, k + 1):
             fact = fact * i
         total = Poisson.e ** (-self.lambtha) * (self.lambtha ** k) / fact
+        return total
+
+    def cdf(self, k):
+        if k < 0:
+            return 0
+        k = toint(k)
+        total = 0
+        for i in range(0, k + 1):
+            total = total + self.pmf(i)
         return total
