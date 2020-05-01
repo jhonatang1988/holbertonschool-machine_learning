@@ -46,3 +46,12 @@ class Exponential:
         if x < 0:
             return 0
         return (Exponential.e ** (-self.lambtha * x)) * self.lambtha
+
+    def cdf(self, x):
+        """
+        :param x: time period
+        :return: cumulative distribution function
+        """
+        if x < 0:
+            return 0
+        return 1 - (Exponential.e ** (-self.lambtha * x))
