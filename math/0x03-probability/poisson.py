@@ -5,6 +5,10 @@ represents a poisson distribution
 
 
 def toint(k):
+    """
+    :param k: param to convert to int
+    :return: int or exception
+    """
     try:
         k = int(k)
         return k
@@ -51,6 +55,10 @@ class Poisson:
         return total
 
     def cdf(self, k):
+        """
+        :param k: number of “successes”
+        :return: cumulative distribution function
+        """
         if k < 0:
             return 0
         k = toint(k)
