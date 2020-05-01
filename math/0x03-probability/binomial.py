@@ -40,7 +40,7 @@ class Binomial:
         """
         if n <= 0:
             raise ValueError('n must be a positive value')
-        elif 0 >= p <= 1:
+        elif 0 > p < 1:
             raise ValueError('p must be greater than 0 and less than 1')
         elif data is None:
             self.n = toint(n)
