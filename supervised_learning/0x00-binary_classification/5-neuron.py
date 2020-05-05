@@ -100,8 +100,8 @@ class Neuron:
         :param alpha: learning rate
         :return: nothing but updates __W and __b just one time
         """
-        dz = A - Y
-        db = 1 / len(Y[0]) * np.sum(dz)
-        self.__b = self.__b - alpha * db
-        dw = 1 / len(Y[0]) * (np.matmul(X, np.transpose(dz)))
-        self.__W = self.__W - alpha * dw
+        dZ = A - Y
+        dW = 1 / len(Y[0]) * (np.matmul(X, dZ.transpose()))
+        self.__W = self.__W - alpha * dW.transpose()
+        dB = 1 / len(Y[0]) * np.sum(dZ)
+        self.__b = self.__b - alpha * dB
