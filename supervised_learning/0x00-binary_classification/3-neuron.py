@@ -73,7 +73,6 @@ class Neuron:
         :param A: guess of the output, known as A[2] in NN
         :return: J or cost function
         """
-        m = len(Y[0])
-        J = -1 / m * np.sum(Y * np.log(A) + (1.0000001 - Y) * (np.log(
-            1.0000001 - A)))
-        return J
+        return -1 / len(Y[0]) * np.sum(
+            Y * np.log(A) + (1 - Y) * (np.log(1.0000001 -
+                                              A)))
