@@ -63,5 +63,5 @@ class Neuron:
         :param X: input data
         :return: activation function stored in _A
         """
-        self._A = self._sigmoid(np.matmul(X.T, self._W.T) + self._b)
+        self._A = self._sigmoid(np.matmul(self._W, X) + self._b)
         return self._A
