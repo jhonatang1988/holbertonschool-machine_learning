@@ -20,9 +20,9 @@ class Neuron:
         elif nx < 1:
             raise ValueError('nx must be a positive integer')
         else:
-            self._W = np.random.randn(1, nx)
-            self._b = 0
-            self._A = 0
+            self.__W = np.random.randn(1, nx)
+            self.__b = 0
+            self.__A = 0
 
     @property
     def W(self):
@@ -30,7 +30,7 @@ class Neuron:
         W for Weights
         :return: private Weights
         """
-        return self._W
+        return self.__W
 
     @property
     def b(self):
@@ -38,7 +38,7 @@ class Neuron:
         biases getter
         :return: private biases
         """
-        return self._b
+        return self.__b
 
     @property
     def A(self):
@@ -46,7 +46,7 @@ class Neuron:
         A for Activation getter
         :return: private activation
         """
-        return self._A
+        return self.__A
 
     @staticmethod
     def _sigmoid(z):
@@ -55,7 +55,7 @@ class Neuron:
         :param z: loss function
         :return: sigmoid function of loss function
         """
-        return 1.0 / (1.0 + np.exp(-z))
+        return 1 / (1 + np.exp(-z))
 
     def forward_prop(self, X):
         """
@@ -63,5 +63,5 @@ class Neuron:
         :param X: input data
         :return: activation function stored in _A
         """
-        self._A = self._sigmoid(np.matmul(self._W, X) + self._b)
-        return self._A
+        self.__A = self._sigmoid(np.matmul(self.__W, X) + self.__b)
+        return self.__A
