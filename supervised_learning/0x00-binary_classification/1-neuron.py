@@ -20,9 +20,17 @@ class Neuron:
         elif nx < 1:
             raise ValueError('nx must be a positive integer')
         else:
-            self.W = np.random.randn(1, nx)
+            self._W = np.random.randn(1, nx)
             self._b = 0
             self._A = 0
+
+    @property
+    def W(self):
+        """
+        W for Weights
+        :return: private Weights
+        """
+        return self._W
 
     @property
     def b(self):
