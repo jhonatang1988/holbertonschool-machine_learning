@@ -163,7 +163,6 @@ class Neuron:
         if graph:
             print(cost_each_iteration)
             lists_for_plot = sorted(cost_each_iteration.items())
-            print(lists_for_plot)
             x, y = zip(*lists_for_plot)
             plt.plot(x, y)
             plt.xlabel('iteration')
