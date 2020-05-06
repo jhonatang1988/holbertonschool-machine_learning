@@ -117,15 +117,17 @@ class NeuralNetwork:
         """
         dZ2 = A2 - Y
         dW2 = 1 / len(Y[0]) * (np.matmul(A1, dZ2.transpose()))
-        self.__W2 = self.__W2 - alpha * dW2.transpose()
         db2 = 1 / len(Y[0]) * np.sum(dZ2, axis=1, keepdims=True)
-        self.__b2 = self.__b2 - alpha * db2
+
         # dg is the derivative of the activation function that in this case
         # is _sigmoid i put dg because g is the convention for the activation
         # function
         dg = self._sigmoid_derivative(A1)
         dZ1 = (np.matmul(self.__W2.transpose(), dZ2)) * dg
         dW1 = 1 / len(Y[0]) * (np.matmul(dZ1, X.transpose()))
-        self.__W1 = self.__W1 - alpha * dW1
         db1 = 1 / len(Y[0]) * (np.sum(dZ1, axis=1, keepdims=True))
+
+        self.__W2 = self.__W2 - alpha * dW2.transpose()
+        self.__b2 = self.__b2 - alpha * db2
+        self.__W1 = self.__W1 - alpha * dW1
         self.__b1 = self.__b1 - alpha * db1
