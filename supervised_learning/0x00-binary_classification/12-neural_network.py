@@ -85,3 +85,16 @@ class NeuralNetwork:
         """
         return -1 / len(Y[0]) * np.sum(
             Y * np.log(A) + (1 - Y) * (np.log(1.0000001 - A)))
+
+    def evaluate(self, X, Y):
+        """
+        as action function outputs between 0 and 1, like 0.323 it must be
+        approximated to 1 or 0.
+        :param X: input data
+        :param Y: human outputs
+        :return: action function outputs normalized to 1 or 0 and J (cost)
+        """
+        _, self.__A2 = self.forward_prop(X)
+        A2_binary = np.where(self.__A2 >= 0.5, 1, 0)
+        J = self.cost(Y, self.__A2)
+        return A2_binary, J
