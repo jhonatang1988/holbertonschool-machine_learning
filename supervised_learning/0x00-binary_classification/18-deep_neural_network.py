@@ -48,6 +48,9 @@ class DeepNeuralNetwork:
             key_for_biases = 'b' + str(i)
             value_for_biases = np.zeros((layers[i], 1))
             self.__weights[key_for_biases] = value_for_biases
+        del layers_with_inputs[0]
+        print(layers)
+        print(layers_with_inputs)
 
     @property
     def L(self):
