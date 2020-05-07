@@ -46,7 +46,7 @@ class DeepNeuralNetwork:
             self.__weights.update({key_for_weights: value_for_weights})
 
             key_for_biases = 'b' + str(i)
-            value_for_biases = np.zeros((layers_with_inputs[i], 1))
+            value_for_biases = np.zeros((layers[i], 1))
             self.__weights.update({key_for_biases: value_for_biases})
 
     @property
@@ -79,33 +79,16 @@ class DeepNeuralNetwork:
         # self.__A1 = self._sigmoid(np.matmul(self.__W1, X) + self.__b1)
         # we add the inputs to the cache as inputs could be considered as
         # activations for the earlier layer
-        # self.__cache.update({'A0': X})
-        # for i in range(1, self.__L + 1):
-        #     key_for_activations = 'A' + str(i)
-        #     key_earlier_activations = 'A' + str(i - 1)
-        #     key_search_weights = 'W' + str(i)
-        #     key_search_biases = 'b' + str(i)
-        #     value_for_activations = self._sigmoid(
-        #         np.matmul(self.__weights[key_search_weights],
-        #                   self.__cache[key_earlier_activations]) +
-        #         self.__weights[key_search_biases])
-        #     self.__cache.update({key_for_activations: value_for_activations})
-        #
-        # return value_for_activations, self.__cache
+        self.__cache.update({'A0': X})
+        for i in range(1, self.__L + 1):
+            key_for_activations = 'A' + str(i)
+            key_earlier_activations = 'A' + str(i - 1)
+            key_search_weights = 'W' + str(i)
+            key_search_biases = 'b' + str(i)
+            value_for_activations = self._sigmoid(
+                np.matmul(self.__weights[key_search_weights],
+                          self.__cache[key_earlier_activations]) +
+                self.__weights[key_search_biases])
+            self.__cache.update({key_for_activations: value_for_activations})
 
-        self.__cache['A0'] = X
-
-        for la in range(self.__L):
-            key_W = "W{}".format(la + 1)
-            key_b = "b{}".format(la + 1)
-            key_A = "A{}".format(la)
-            key_newA = "A{}".format(la + 1)
-
-            W = self.__weights[key_W]
-            A = self.__cache[key_A]
-            b = self.__weights[key_b]
-            z = np.matmul(W, A) + b
-            sigmoid = 1 / (1 + np.exp(-z))
-            self.__cache[key_newA] = sigmoid
-
-        return sigmoid, self.__cache
+        return value_for_activations, self.__cache
