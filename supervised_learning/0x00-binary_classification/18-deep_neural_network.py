@@ -93,6 +93,8 @@ class DeepNeuralNetwork:
         #
         # return value_for_activations, self.__cache
 
+        self.__cache['A0'] = X
+
         for la in range(self.__L):
             key_W = "W{}".format(la + 1)
             key_b = "b{}".format(la + 1)
