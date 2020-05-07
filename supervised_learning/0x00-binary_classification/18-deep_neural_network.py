@@ -61,3 +61,44 @@ class DeepNeuralNetwork:
     def weights(self):
         return self.__weights
 
+    @staticmethod
+    def _sigmoid(z):
+        """
+        sigmoid function
+        :param z: loss function
+        :return: sigmoid function of loss function
+        """
+        return 1 / (1 + np.exp(-z))
+
+    @staticmethod
+    def _sigmoid_derivative(s):
+        """
+        derivative of sigmoid function
+        :param s: sigmoid function
+        :return: derivative of sigmoid function
+        """
+        return s * (1 - s)
+
+    def forward_prop(self, X):
+        """
+        forward propagation of the network - just one pass
+        :param X: input data (nx, m) for this exercise (784, 46...something)
+        :return: the output of the network (A3 for this exercise) and __cache
+        """
+        # self.__A1 = self._sigmoid(np.matmul(self.__W1, X) + self.__b1)
+        # we add the inputs to the cache as inputs could be considered as
+        # activations for the earlier layer
+        self.__cache.update({'A0': X})
+        for i in range(1, self.__L + 1):
+            key_for_activations = 'A' + str(i)
+            key_earlier_activations = 'A' + str(i - 1)
+            key_search_weights = 'W' + str(i)
+            key_search_biases = 'b' + str(i)
+            value_for_activations = self._sigmoid(
+                np.matmul(self.__weights[key_search_weights],
+                          self.__cache[key_earlier_activations]) +
+                self.__weights[key_search_biases])
+            self.__cache.update({key_for_activations: value_for_activations})
+
+        key_for_last_activations = 'A' + str(self.__L)
+        return self.__cache[key_for_last_activations], self.__cache
