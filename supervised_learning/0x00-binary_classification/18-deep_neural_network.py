@@ -43,11 +43,11 @@ class DeepNeuralNetwork:
                                                 layers_with_inputs[
                                                     i - 1]) * np.sqrt(
                 2 / layers_with_inputs[i - 1])
-            self.__weights.update({key_for_weights: value_for_weights})
+            self.__weights[key_for_weights] = value_for_weights
 
             key_for_biases = 'b' + str(i)
             value_for_biases = np.zeros((layers[i], 1))
-            self.__weights.update({key_for_biases: value_for_biases})
+            self.__weights[key_for_biases] = value_for_biases
 
     @property
     def L(self):
