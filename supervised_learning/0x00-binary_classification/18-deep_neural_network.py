@@ -91,4 +91,4 @@ class DeepNeuralNetwork:
                 self.__weights[key_search_biases])
             self.__cache.update({key_for_activations: value_for_activations})
 
-        return self.__cache[key_for_activations], self.__cache
+        return value_for_activations, self.__cache
