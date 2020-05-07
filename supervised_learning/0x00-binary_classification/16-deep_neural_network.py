@@ -24,6 +24,8 @@ class DeepNeuralNetwork:
             raise TypeError('layers must be a list of positive integers')
 
         self.L = len(layers)
+        if self.L == 0:
+            raise TypeError('layers must be a list of positive integers')
         self.cache = {}
         # initialized using He et al. w=np.random.randn(layer_size[l],
         # layer_size[l-1])*np.sqrt(2/layer_size[l-1])
