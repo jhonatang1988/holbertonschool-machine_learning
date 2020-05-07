@@ -70,15 +70,6 @@ class DeepNeuralNetwork:
         """
         return 1 / (1 + np.exp(-z))
 
-    @staticmethod
-    def _sigmoid_derivative(s):
-        """
-        derivative of sigmoid function
-        :param s: sigmoid function
-        :return: derivative of sigmoid function
-        """
-        return s * (1 - s)
-
     def forward_prop(self, X):
         """
         forward propagation of the network - just one pass
