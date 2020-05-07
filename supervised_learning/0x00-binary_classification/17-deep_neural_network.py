@@ -51,13 +51,24 @@ class DeepNeuralNetwork:
 
     @property
     def L(self):
+        """
+        L getter
+        :return: self.__L
+        """
         return self.__L
 
     @property
     def cache(self):
+        """
+        cache getter
+        :return: self.__cache
+        """
         return self.__cache
 
     @property
     def weights(self):
+        """
+        weights getter
+        :return: self.__weights
+        """
         return self.__weights
-
