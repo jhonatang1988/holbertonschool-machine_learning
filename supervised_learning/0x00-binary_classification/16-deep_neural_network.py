@@ -33,10 +33,9 @@ class DeepNeuralNetwork:
         layers_with_inputs = layers
         layers_with_inputs.insert(0, nx)
         for i in range(1, len(layers_with_inputs)):
-            if type(layers_with_inputs[i]) is not int:
+            if type(layers_with_inputs[i]) is not int \
+                    or layers_with_inputs[i] < 1:
                 raise TypeError('layers must be a list of positive integers')
-            if layers_with_inputs[i] < 1:
-                raise ValueError('layers must be a list of positive integers')
             key_for_weights = 'W' + str(i)
             value_for_weights = np.random.randn(layers_with_inputs[i],
                                                 layers_with_inputs[
