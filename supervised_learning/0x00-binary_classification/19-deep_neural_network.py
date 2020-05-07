@@ -94,3 +94,12 @@ class DeepNeuralNetwork:
 
         return value_for_activations, self.__cache
 
+    def cost(self, Y, A):
+        """
+        cost function for the network
+        :param Y: shape (1, m) with the input data
+        :param A: shape (1, m)  with activations outputs
+        :return: cost (J)
+        """
+        return -1 / len(Y[0]) * np.sum(
+            Y * np.log(A) + (1 - Y) * (np.log(1.0000001 - A)))
