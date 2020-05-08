@@ -156,8 +156,11 @@ class DeepNeuralNetwork:
                 dW = 1 / len(Y[0]) * (np.matmul(dZ, A_left.transpose()))
                 db = 1 / len(Y[0]) * (np.sum(dZ, axis=1, keepdims=True))
 
-            weights_delta.update({self.__weights[W] - (alpha * dW)})
-            weights_delta.update({self.__weights[b] - (alpha * db)})
+            weights_delta.update({W: self.weights[W] - (
+                    alpha * dW)})
+            weights_delta.update({b: self.weights[b] - (
+                    alpha * db)})
+
             # self.weights[W] = self.weights[W] - alpha * dW
             # self.weights[b] = self.weights[b] - alpha * db
 
