@@ -72,8 +72,13 @@ class DeepNeuralNetwork:
         return 1 / (1 + np.exp(-z))
 
     @staticmethod
-    def _sigmoid_derivative(s):
-        return s * (1 - s)
+    def _sigmoid_derivative(A):
+        """
+        _sigmoid_derivative for the backpropagation
+        :param s: sigmoid (A)
+        :return: derivative of sigmoid
+        """
+        return A * (1 - A)
 
     def forward_prop(self, X):
         """
