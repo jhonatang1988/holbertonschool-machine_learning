@@ -134,7 +134,6 @@ class DeepNeuralNetwork:
         # is _sigmoid i put dg because g is the convention for the activation
         # function
         for i in range(self.__L, 0, -1):
-            print(i)
             W = 'W' + str(i)
             b = 'b' + str(i)
             A = cache['A' + str(i)]
@@ -180,7 +179,7 @@ class DeepNeuralNetwork:
         # derivadas parciales se necesita que los pesos sigan igual. Se tiene
         # que crear una diccionario distinto para guardar el resultado
         # mientras el loop llega al final.
-        
+
         # self.weights['W3'] = self.weights['W3'] - alpha * dW3.T
         # self.weights['b3'] = self.weights['b3'] - alpha * db3
         # self.weights['W2'] = self.weights['W2'] - alpha * dW2
