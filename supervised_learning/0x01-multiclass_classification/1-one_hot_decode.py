@@ -19,9 +19,13 @@ def one_hot_decode(one_hot):
         return None
     elif np.sum(one_hot) > one_hot.shape[1]:
         return None
+    for class_vector in one_hot.T:
+        if np.sum(class_vector) != 1.0:
+            return None
 
     a_list = []
     for i in range(one_hot.shape[1]):
         max_index = np.argmax(one_hot.T[i])
         a_list.append(max_index)
-    return np.array(a_list)
+    one_hot_decode = np.asarray(a_list)
+    return one_hot_decode
