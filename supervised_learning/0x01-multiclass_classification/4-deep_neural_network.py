@@ -24,7 +24,7 @@ class DeepNeuralNetwork:
             raise ValueError('nx must be a positive integer')
         elif type(layers) is not list:
             raise TypeError('layers must be a list of positive integers')
-        elif activation != 'sigmoid' or activation != 'tanh':
+        if activation != 'sig' and activation != 'tanh':
             raise ValueError("activation must be 'sig' or 'tanh'")
 
         self.__activation = activation
@@ -195,12 +195,12 @@ class DeepNeuralNetwork:
                         alpha * db)})
 
             else:
-                dZ_right = dZ
-                W_right = self.weights['W' + str(i + 1)]
                 if self.__activation == 'sig':
                     dg = self._sigmoid_derivative(A)
                 elif self.__activation == 'tanh':
                     dg = self._tanh_derivative(A)
+                dZ_right = dZ
+                W_right = self.weights['W' + str(i + 1)]
                 dZ = (np.matmul(W_right.T, dZ_right)) * dg
                 dW = 1 / len(Y[0]) * (np.matmul(dZ, A_left.transpose()))
                 db = 1 / len(Y[0]) * (np.sum(dZ, axis=1, keepdims=True))
