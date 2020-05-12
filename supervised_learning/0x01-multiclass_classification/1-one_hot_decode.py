@@ -11,6 +11,10 @@ def one_hot_decode(one_hot):
     :param one_hot: one hot encoded matrix
     :return: decoded one-hot matrix
     """
+    if type(one_hot) is not np.ndarray:
+        return None
+    elif one_hot.shape[1] == 0:
+        return None
     a_list = []
     for i in range(one_hot.shape[1]):
         max_index = np.argmax(one_hot.T[i])
