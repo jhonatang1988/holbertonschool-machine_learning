@@ -15,11 +15,14 @@ def one_hot_decode(one_hot):
         return None
     elif one_hot.shape[1] == 0:
         return None
+    elif len(one_hot.shape) != 2:
+        return None
     elif np.amax(one_hot) > 1.0:
         return None
     elif np.sum(one_hot) > one_hot.shape[1]:
         return None
     for class_vector in one_hot.T:
+        # print(np.sum(class_vector))
         if np.sum(class_vector) != 1.0:
             return None
 
