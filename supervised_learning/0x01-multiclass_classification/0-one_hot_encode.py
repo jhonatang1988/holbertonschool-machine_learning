@@ -21,7 +21,7 @@ def one_hot_encode(Y, classes):
     elif classes <= np.amax(Y, axis=0):
         return None
     a_list = []
-    for i in range(classes):
+    for i in range(Y.shape[0]):
         array = np.zeros(classes)
         # ahora incluimos en el indice
         index = Y[i]
