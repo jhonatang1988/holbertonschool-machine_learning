@@ -25,8 +25,6 @@ def one_hot_decode(one_hot):
         # print(np.sum(class_vector))
         if np.sum(class_vector) != 1.0:
             return None
-    # if type(one_hot) is not np.ndarray or len(one_hot) == 0:
-    #     return None
 
     a_list = []
     for i in range(one_hot.shape[1]):
