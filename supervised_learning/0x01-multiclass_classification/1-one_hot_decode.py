@@ -15,6 +15,9 @@ def one_hot_decode(one_hot):
         return None
     elif one_hot.shape[1] == 0:
         return None
+    elif np.amax(one_hot) > 1.0:
+        return None
+
     a_list = []
     for i in range(one_hot.shape[1]):
         max_index = np.argmax(one_hot.T[i])
