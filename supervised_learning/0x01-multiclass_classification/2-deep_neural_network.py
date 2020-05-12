@@ -286,6 +286,11 @@ class DeepNeuralNetwork:
 
     @staticmethod
     def load(filename):
+        """
+        loads a DeepNeuralNetwork object
+        :param filename: fileObj
+        :return: DeepNeuralNetwork object
+        """
         if not filename:
             return None
         try:
