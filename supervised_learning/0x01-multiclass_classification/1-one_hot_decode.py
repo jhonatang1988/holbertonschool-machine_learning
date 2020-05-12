@@ -30,5 +30,5 @@ def one_hot_decode(one_hot):
     for i in range(one_hot.shape[1]):
         max_index = np.argmax(one_hot.T[i])
         a_list.append(max_index)
-    one_hot_decode = np.asarray(a_list)
-    return one_hot_decode
+    one_hot_dec = np.asarray(a_list)
+    return one_hot_dec
