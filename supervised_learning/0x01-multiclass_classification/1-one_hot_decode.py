@@ -12,7 +12,7 @@ def one_hot_decode(one_hot):
     :return: decoded one-hot matrix
     """
     a_list = []
-    for i in range(len(one_hot)):
+    for i in range(one_hot.shape[1]):
         max_index = np.argmax(one_hot.T[i])
         a_list.append(max_index)
     return np.array(a_list)
