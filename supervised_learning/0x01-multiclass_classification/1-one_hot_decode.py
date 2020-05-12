@@ -11,10 +11,10 @@ def one_hot_decode(one_hot):
     :param one_hot: one hot encoded matrix
     :return: decoded one-hot matrix
     """
-    # if type(one_hot) is not np.ndarray:
-    #     return None
-    # elif one_hot.shape[1] == 0:
-    #     return None
+    if type(one_hot) is not np.ndarray:
+        return None
+    elif one_hot.shape[1] == 0:
+        return None
     # elif len(one_hot.shape) != 2:
     #     return None
     # elif np.amax(one_hot) > 1.0:
@@ -25,10 +25,8 @@ def one_hot_decode(one_hot):
     #     # print(np.sum(class_vector))
     #     if np.sum(class_vector) != 1.0:
     #         return None
-    if type(one_hot) is not np.ndarray or len(one_hot) == 0:
-        return None
 
-        # has to be shape 2 => (classes, m)
+    # has to be shape 2 => (classes, m)
     if len(one_hot.shape) != 2:
         return None
 
