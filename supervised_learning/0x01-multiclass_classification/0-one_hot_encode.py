@@ -27,5 +27,6 @@ def one_hot_encode(Y, classes):
         index = Y[i]
         array[index] = 1
         a_list.append(array)
-    one_hot_encode = np.asarray(a_list).T
-    return one_hot_encode
+    one_hot = np.asarray(a_list).T
+    one_hot.reshape((classes, Y.shape[0]))
+    return one_hot
