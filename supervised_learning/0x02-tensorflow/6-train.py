@@ -74,6 +74,9 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
             print('\tValidation Cost: {}'.format(
                 cost_valid)) if i % 100 == 0 or i == iterations else None
             print('\tValidation Accuracy: {}'.format(
-                acc_valid))if i % 100 == 0 or i == iterations else None
-            sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+                acc_valid)) if i % 100 == 0 or i == iterations else None
+
+            sess.run(train_op, feed_dict={
+                     x: X_train, y: Y_train}) if i < iterations else None
+
         return saver.save(sess, save_path)
