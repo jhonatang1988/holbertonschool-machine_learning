@@ -26,12 +26,12 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
     iterations: param: is the number of iterations to train over
     save_path: param: designates where to save the model
     """
-    print(X_train.shape[1])
-    print(Y_train.shape)
-    print(X_valid.shape)
-    print(Y_valid.shape)
-    print(layer_sizes)
-    print(activations)
+    # print(X_train.shape[1])
+    # print(Y_train.shape)
+    # print(X_valid.shape)
+    # print(Y_valid.shape)
+    # print(layer_sizes)
+    # print(activations)
 
     x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
     # print(x)
