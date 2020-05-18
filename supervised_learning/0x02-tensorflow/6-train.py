@@ -79,4 +79,4 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
             sess.run(train_op, feed_dict={
                      x: X_train, y: Y_train}) if i < iterations else None
 
-        return saver.save(sess, save_path)
+    return saver.save(sess, save_path)
