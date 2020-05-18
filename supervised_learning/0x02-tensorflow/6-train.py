@@ -10,7 +10,8 @@ calculate_loss = __import__('4-calculate_loss').calculate_loss
 create_train_op = __import__('5-create_train_op').create_train_op
 
 
-def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, iterations, save_path="/tmp/model.ckpt"):
+def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
+          iterations, save_path="/tmp/model.ckpt"):
     """
     builds, trains, and saves a neural network classifier
     X_train: param: is a numpy.ndarray containing the training input data
@@ -23,42 +24,42 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     iterations: param: is the number of iterations to train over
     save_path: param: designates where to save the model
     """
-    print(X_train.shape[1])
-    print(Y_train.shape)
-    print(X_valid.shape)
-    print(Y_valid.shape)
-    print(layer_sizes)
-    print(activations)
+    # print(X_train.shape[1])
+    # print(Y_train.shape)
+    # print(X_valid.shape)
+    # print(Y_valid.shape)
+    # print(layer_sizes)
+    # print(activations)
 
     x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
-    print(x)
-    print(y)
+    # print(x)
+    # print(y)
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', x)
 
     y_pred = forward_prop(x, layer_sizes, activations)
-    print(y_pred)
+    # print(y_pred)
     tf.add_to_collection('y_pred', y_pred)
 
     accuracy = calculate_accuracy(y, y_pred)
-    print(accuracy)
+    # print(accuracy)
     tf.add_to_collection('accuracy', accuracy)
 
     loss = calculate_loss(y, y_pred)
-    print(loss)
+    # print(loss)
     tf.add_to_collection('loss', loss)
 
     train_op = create_train_op(loss, alpha)
-    print(train_op)
+    # print(train_op)
     tf.add_to_collection('train_op', train_op)
 
     init_op = tf.global_variables_initializer()
-    print(init_op)
+    # print(init_op)
+    saver = tf.train.Saver()
 
     with tf.Session() as sess:
         sess.run(init_op)
-        for i in range(0, iterations, 1):
-            sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+        for i in range(0, iterations + 1, 1):
             cost_train = sess.run(
                 loss, feed_dict={x: X_train, y: Y_train})
             acc_train = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
@@ -73,3 +74,5 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
                 cost_valid))if i % 100 == 0 else None
             print('\tValidation Accuracy: {}'.format(
                 acc_valid)) if i % 100 == 0 else None
+            sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+        return saver.save(sess, save_path)
