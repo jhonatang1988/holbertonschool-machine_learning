@@ -1,6 +1,6 @@
 {
-    "python.pythonPath": "/Users/jhonatangalindo/.pyenv/versions/3.5.9/bin/python",
-    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "/home/vsonline/.pyenv/versions/3.5.9/bin/python",
     "python.linting.pycodestyleEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "editor.formatOnSave": true
 }
