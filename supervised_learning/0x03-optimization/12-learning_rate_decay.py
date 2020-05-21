@@ -20,7 +20,8 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     occur before alpha is decayed further
     :return: the learning rate decay operation
     """
-    new_alpha = tf.constant(alpha / (1 + decay_rate * np.floor_divide(
-        global_step, decay_step)))
-
-    return new_alpha
+    return tf.compat.v1.train.inverse_time_decay(global_step=global_step,
+                                                 decay_steps=decay_step,
+                                                 decay_rate=decay_rate,
+                                                 learning_rate=alpha,
+                                                 staircase=True)
