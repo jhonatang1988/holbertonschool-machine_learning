@@ -20,11 +20,11 @@ def iterate_mini_batches(X, Y, batch_size):
     :return: mini_batch
     """
     j = 0
-    for i in range(0, X.shape[0] - batch_size + 1, batch_size):
+    for start_idx in range(0, X.shape[0], batch_size):
+        end_idx = min(start_idx + batch_size, X.shape[0])
         j = j + 1
-        X_shuffled, Y_shuffled = shuffle_data(X, Y)
-        excerpt = slice(i, i + batch_size)
-        yield X_shuffled[excerpt], Y_shuffled[excerpt], j
+        excerpt = slice(start_idx, end_idx)
+        yield X[excerpt], Y[excerpt], j
 
 
 def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
@@ -78,7 +78,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                                                   batch_size):
                     x_batch, y_batch, j = batch
                     sess.run(train_op, feed_dict={x: x_batch, y: y_batch})
-                    if j % 100 == 0:
+                    if j % 100 == 0 and j != 0:
                         step_cost = sess.run(loss,
                                              feed_dict={x: x_batch,
                                                         y: y_batch})
