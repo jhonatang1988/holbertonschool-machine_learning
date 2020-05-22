@@ -72,7 +72,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print('\tValidation Accuracy: {}'.format(valid_accuracy))
 
             if epoch < epochs:
-                for batch in iterate_mini_batches(X_train, Y_train, batch_size):
+
+                X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
+                for batch in iterate_mini_batches(X_shuffled, Y_shuffled,
+                                                  batch_size):
                     x_batch, y_batch, j = batch
                     sess.run(train_op, feed_dict={x: x_batch, y: y_batch})
                     if j % 100 == 0:
