@@ -12,9 +12,7 @@ def shuffle_data(X, Y):
     :param Y: second matrix
     :return: both matrices shuffled
     """
-    np.random.seed(0)
-    X_shuffled = np.random.permutation(X)
-    np.random.seed(0)
-    Y_shuffled = np.random.permutation(Y)
-
-    return X_shuffled, Y_shuffled
+    # https://stackoverflow.com/questions/43229034/randomly-shuffle-data-
+    # and-labels-from-different-files-in-the-same-order
+    idx = np.random.permutation(Y.shape[0])
+    return X[idx], Y[idx]
