@@ -7,7 +7,8 @@ import numpy as np
 
 def batch_norm(Z, gamma, beta, epsilon):
     """
-    normalizes an unactivated output of a neural network using batch normalization
+    normalizes an unactivated output of a neural network using batch
+    normalization
     :param Z: numpy.ndarray of shape (m, n) that should be normalized (m is
     the number of data points, n is the number of features in Z
     :param gamma: numpy.ndarray of shape (1, n) containing the scales used for
