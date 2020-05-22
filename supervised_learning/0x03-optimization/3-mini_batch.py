@@ -39,7 +39,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                      epochs=5, load_path="/tmp/model.ckpt",
                      save_path="/tmp/model.ckpt"):
     """
-    that trains a loaded neural network model using mini-batch gradient descent:
+    that trains a loaded neural network model using mini-batch gradient
+    descent:
     :param X_train: (m, 784) training data
     :param Y_train: (m, 10) labels
     :param X_valid: (m, 784) containing the validation data
