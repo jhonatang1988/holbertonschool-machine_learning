@@ -15,19 +15,21 @@ def create_batch_norm_layer(prev, n, activation):
     the layer
     :return:
     """
+    # https://stackoverflow.com/questions/33949786/how-could-i-use-batch
+    # -normalization-in-tensorflow
     init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     output = tf.layers.Dense(units=n, activation=activation,
                              name='layer', kernel_initializer=init)
 
     Z = output(prev)
+    mean, variance = tf.nn.moments(Z, [0])
 
-    Z_mean = np.mean(Z, axis=0)
-    Z_variance = np.var(Z, axis=0)
-    epsilon = tf.constant(1e-8)
-    gamma = tf.Variable(1, shape=[n])
-    beta = tf.Variable(0, shape=[n])
-    Z_norm = tf.nn.batch_normalization(x=Z, mean=Z_mean, variance=Z_variance,
-                                       offset=beta, scale=gamma,
-                                       variance_epsilon=epsilon)
+    epsilon = 1e-8
 
-    return Z_norm
+    beta = tf.Variable(tf.constant(0.0, shape=[n]))
+    gamma = tf.Variable(tf.constant(1.0, shape=[n]))
+    Z_norm = tf.nn.batch_normalization(
+        Z, mean, variance, beta, gamma,
+        epsilon)
+
+    return activation(Z_norm)
