@@ -15,11 +15,6 @@ def update_variables_momentum(alpha, beta1, var, grad, v):
     :param v: is the previous first moment of var
     :return: updated variable and the new moment, respectively
     """
-    # https://hackernoon.com/implementing-different-variants-of-gradient-
-    # descent-optimization-algorithm-in-python-using-numpy-809e7ab3bab4
-    # http://people.duke.edu/~ccc14/sta-663-2018/notebooks/
-    # S09G_Gradient_Descent_Optimization.html
-
     velocity = beta1 * v + (1 - beta1) * grad
     new_var = var - alpha * velocity
 
