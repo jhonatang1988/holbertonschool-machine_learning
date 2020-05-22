@@ -19,8 +19,8 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     occur before alpha is decayed further
     :return: the learning rate decay operation
     """
-    return tf.compat.v1.train.inverse_time_decay(global_step=global_step,
-                                                 decay_steps=decay_step,
-                                                 decay_rate=decay_rate,
-                                                 learning_rate=alpha,
-                                                 staircase=True)
+    return tf.train.inverse_time_decay(global_step=global_step,
+                                       decay_steps=decay_step,
+                                       decay_rate=decay_rate,
+                                       learning_rate=alpha,
+                                       staircase=True)
