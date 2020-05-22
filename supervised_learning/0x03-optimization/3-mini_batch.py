@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-that trains a loaded neural network model using mini-batch gradient descent:
-"""
+
 import tensorflow as tf
 
 shuffle_data = __import__('2-shuffle_data').shuffle_data
@@ -25,6 +23,11 @@ def iterate_mini_batches(X, Y, batch_size):
         j = j + 1
         excerpt = slice(start_idx, end_idx)
         yield X[excerpt], Y[excerpt], j
+
+
+"""
+that trains a loaded neural network model using mini-batch gradient descent:
+"""
 
 
 def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
