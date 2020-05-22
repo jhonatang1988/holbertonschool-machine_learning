@@ -97,5 +97,5 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                         print('\t\tCost: {}'.format(step_cost))
                         print('\t\tAccuracy: {}'.format(step_accuracy))
 
-        saved_model = loader.save(sess, save_path)
-    return saved_model
+        saved_path = loader.save(sess, save_path)
+    return saved_path
