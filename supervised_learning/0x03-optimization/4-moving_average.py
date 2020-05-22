@@ -18,7 +18,7 @@ def moving_average(data, beta):
     zs = np.zeros((len(data)))
     z = 0
     for i in range(len(data)):
-        z = beta * z + (1 - beta) * data[i]
-        zc = z / (1 - beta ** (i + 1))
+        z = beta * z + (1. - beta) * data[i]
+        zc = z / (1. - beta ** (i + 1.))
         zs[i] = zc
-    return zs
+    return zs.tolist()
