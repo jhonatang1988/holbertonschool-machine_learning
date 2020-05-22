@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+that trains a loaded neural network model using mini-batch gradient descent:
+"""
 
 import tensorflow as tf
 
@@ -17,6 +20,8 @@ def iterate_mini_batches(X, Y, batch_size):
     :param batch_size: size of mini batch
     :return: mini_batch
     """
+    # https://stackoverflow.com/questions/38157972/how-to-implement-mini-
+    # batch-gradient-descent-in-python SECOND ANSWER!
     j = 0
     for start_idx in range(0, X.shape[0], batch_size):
         end_idx = min(start_idx + batch_size, X.shape[0])
