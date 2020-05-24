@@ -176,7 +176,6 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     """
 
     """first the placeholders"""
-    tf.set_random_seed(0)
     x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
                        name='x')
     y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
