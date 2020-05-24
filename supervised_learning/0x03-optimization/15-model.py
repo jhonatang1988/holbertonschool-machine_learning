@@ -50,6 +50,22 @@ def calculate_loss(y, y_pred):
     return loss
 
 
+def create_layer(prev, n, activation):
+    """
+    create layer
+    prev: previous output
+    n: number of nodes in each layer
+    activation: activation function
+    """
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    output = tf.layers.Dense(units=n, activation=activation,
+                             name='layer', kernel_initializer=init)
+
+    y_pred = output(prev)
+
+    return y_pred
+
+
 def create_batch_norm_layer(prev, n, activation):
     """
     creates a batch normalization layer for a neural network in tensorflow
@@ -61,6 +77,10 @@ def create_batch_norm_layer(prev, n, activation):
     """
     # https://stackoverflow.com/questions/33949786/how-could-i-use-batch
     # -normalization-in-tensorflow
+
+    if activation is None:
+        return create_layer(prev, n, activation)
+
     init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     output = tf.layers.Dense(units=n,
                              name='layer', kernel_initializer=init)
@@ -76,10 +96,7 @@ def create_batch_norm_layer(prev, n, activation):
         x=Z, mean=mean, variance=variance, offset=beta, scale=gamma,
         variance_epsilon=epsilon)
 
-    if not activation:
-        return Z_norm
-    else:
-        return activation(Z_norm)
+    return activation(Z_norm)
 
 
 def forward_prop(x, layer_sizes=[], activations=[]):
@@ -195,9 +212,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('loss', loss)
     tf.add_to_collection('train_op', train_op)
-    saver = tf.train.Saver()
 
     init_op = tf.global_variables_initializer()
+    saver = tf.train.Saver()
 
     with tf.Session() as sess:
         sess.run(init_op)
