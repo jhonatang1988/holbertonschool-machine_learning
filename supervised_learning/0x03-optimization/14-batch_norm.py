@@ -2,7 +2,6 @@
 """
 creates a batch normalization layer for a neural network in tensorflow
 """
-import numpy as np
 import tensorflow as tf
 
 
