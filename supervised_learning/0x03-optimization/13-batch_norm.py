@@ -9,11 +9,14 @@ def batch_norm(Z, gamma, beta, epsilon):
     """
     normalizes an unactivated output of a neural network using batch
     normalization
-    :param Z: numpy.ndarray of shape (m, n) that should be normalized (m is
+    :param Z: numpy.ndarray of shape (m, n) that should be normalized
+    (m is
     the number of data points, n is the number of features in Z
-    :param gamma: numpy.ndarray of shape (1, n) containing the scales used for
+    :param gamma: numpy.ndarray of shape (1, n) containing the scales
+    used for
     batch normalization
-    :param beta: numpy.ndarray of shape (1, n) containing the offsets used for
+    :param beta: numpy.ndarray of shape (1, n) containing the offsets
+    used for
     batch normalization
     :param epsilon: small number used to avoid division by zero
     :return: normalized Z matrix
