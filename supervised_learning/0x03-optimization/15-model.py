@@ -223,8 +223,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
 
                 X_shuffled, Y_shuffled = shuffle_data(Data_train[0],
                                                       Data_train[1])
-                sess.run(alpha)
                 sess.run(global_step.assign(epoch))
+                sess.run(alpha)
+
                 for batch in iterate_mini_batches(X_shuffled, Y_shuffled,
                                                   batch_size):
                     x_batch, y_batch, j = batch
