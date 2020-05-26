@@ -2,7 +2,8 @@
 """
 calculates the F1 score of a confusion matrix
 """
-import numpy as np
+sensitivity = __import__('1-sensitivity').sensitivity
+precision = __import__('2-precision').precision
 
 
 def f1_score(confusion):
@@ -14,10 +15,6 @@ def f1_score(confusion):
     :return: numpy.ndarray of shape (classes,) containing the F1
     score of each class
     """
-    FP = confusion.sum(axis=0) - np.diag(confusion)
-    TP = np.diag(confusion)
-    PPV = TP / (TP + FP)
-    FN = confusion.sum(axis=1) - np.diag(confusion)
-    TPR = TP / (TP + FN)
-
-    return 2 * ((PPV * TPR) / (PPV + TPR))
+    # https://en.wikipedia.org/wiki/F1_score
+    return 2 * ((precision(confusion) * sensitivity(confusion)) / (
+            precision(confusion) + sensitivity(confusion)))
