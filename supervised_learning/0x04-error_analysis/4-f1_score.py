@@ -9,8 +9,8 @@ precision = __import__('2-precision').precision
 def f1_score(confusion):
     """
     calculates the F1 score of a confusion matrix
-    :param confusion: numpy.ndarray of shape (classes, classes) where row indices
-    represent the correct labels and column indices represent the
+    :param confusion: numpy.ndarray of shape (classes, classes) where row
+    indices represent the correct labels and column indices represent the
     predicted labels
     :return: numpy.ndarray of shape (classes,) containing the F1
     score of each class
