@@ -18,6 +18,8 @@ def create_confusion_matrix(labels, logits):
     """
     # https://stackoverflow.com/questions/50021928
     # /build-confusion-matrix-from-two-vector
+    # labels_only = np.argmax(labels, axis=1)
+    # print(labels_only)
     classes = np.zeros((labels.shape[1], labels.shape[1]), dtype=float)
     np.add.at(classes, (np.argmax(labels, axis=1), np.argmax(logits,
                                                              axis=1)), 1)
