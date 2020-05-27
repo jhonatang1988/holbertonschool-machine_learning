@@ -16,6 +16,8 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
     :param m: the number of data points used
     :return: the cost of the network accounting for L2 regularization
     """
+    # https://machinelearningmastery.com/vector-norms-machine-learning/
+
     # print(cost)
     # print(lambtha)
     # print(weights)
@@ -23,10 +25,14 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
     # print(m)
     # W1 = np.sum(np.square(weights['W1']) ** 2)
     # print(W1)
-    W1_L2 = np.linalg.norm(weights['W1'], ord='fro')
+    # W1_L2 = np.linalg.norm(weights['W1'], ord='fro')
     # print(W1_L2)
-    W2_L2 = np.linalg.norm(weights['W2'], ord='fro')
-    W3_L2 = np.linalg.norm(weights['W3'], ord='fro')
-    L2_regularization_cost = (W1_L2 + W2_L2 + W3_L2) * (lambtha / (2 * m))
+    # W2_L2 = np.linalg.norm(weights['W2'], ord='fro')
+    # W3_L2 = np.linalg.norm(weights['W3'], ord='fro')
+    W_L2_ALL = 0
+    for i in range(1, L + 1):
+        W_L2_ALL += np.linalg.norm(weights['W' + str(i)], ord='fro')
+
+    L2_regularization_cost = W_L2_ALL * (lambtha / (2 * m))
 
     return cost + L2_regularization_cost
