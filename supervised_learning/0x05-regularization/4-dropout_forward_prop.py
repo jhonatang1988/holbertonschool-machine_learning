@@ -19,7 +19,8 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     """
     conducts forward propagation using Dropout
     :param X: shape (nx, m) containing the input data for the network
-    :param weights: a dictionary of the weights and biases of the neural network
+    :param weights: a dictionary of the weights and biases of the neural
+    network
     :param L: number of layers in the network
     :param keep_prob: the probability that a node will be kept
     :return: a dictionary containing the outputs of each layer and the
