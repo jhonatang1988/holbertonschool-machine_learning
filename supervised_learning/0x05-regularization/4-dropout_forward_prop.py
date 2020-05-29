@@ -26,6 +26,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     :return: a dictionary containing the outputs of each layer and the
     dropout mask used on each layer
     """
+    # https://wiseodd.github.io/techblog/2016/06/25/dropout/
     # activations
     activations_dict = {}
 
