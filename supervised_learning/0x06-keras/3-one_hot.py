@@ -12,7 +12,7 @@ def one_hot(labels, classes=None):
     :param classes: last dimension of the one-hot matrix must be the number of classes
     :return: the one-hot matrix
     """
-    if classes is not None:
+    if not classes:
         return K.utils.to_categorical(labels, classes)
-    else
+    else:
         return K.utils.to_categorical(labels, len(labels))
