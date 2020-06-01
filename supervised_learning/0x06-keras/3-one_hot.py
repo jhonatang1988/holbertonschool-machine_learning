@@ -12,4 +12,5 @@ def one_hot(labels, classes=None):
     :param classes: last dimension of the one-hot matrix must be the number of classes
     :return: the one-hot matrix
     """
-    return K.utils.to_categorical(labels, classes)
+    return K.utils.to_categorical(y=labels,
+                                  num_classes=classes)
