@@ -33,7 +33,7 @@ def train_model(network, data, labels, batch_size, epochs,
     # https://www.tensorflow.org/guide/keras/train_and_evaluate
     # the callbacks
 
-    if early_stopping and validation_data:
+    if early_stopping is True and validation_data:
         callbacks = [
             K.callbacks.EarlyStopping(
                 # Stop training when `val_loss` is no longer improving
