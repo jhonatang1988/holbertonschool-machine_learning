@@ -68,12 +68,11 @@ def train_model(network, data, labels, batch_size, epochs,
         ))
 
     # callback to save only the best model
-    if filepath and save_best is True and validation_data:
+    if save_best is True and validation_data:
         if not callbacks:
             callbacks = []
         save_best_model_only = K.callbacks.ModelCheckpoint(
             filepath=filepath,
-            save_weights_only=False,
             monitor='val_loss',
             mode='auto',
             save_best_only=True,
