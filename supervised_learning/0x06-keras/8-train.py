@@ -71,15 +71,12 @@ def train_model(network, data, labels, batch_size, epochs,
     if save_best is True and validation_data:
         if not callbacks:
             callbacks = []
-        save_best_model_only = K.callbacks.ModelCheckpoint(
+        callbacks.append(K.callbacks.ModelCheckpoint(
             filepath=filepath,
             monitor='val_loss',
             mode='auto',
             save_best_only=True,
-            save_freq='epoch',
-            verbose=0
-        )
-        callbacks.append(save_best_model_only)
+        ))
 
     history = network.fit(x=data,
                           y=labels,
