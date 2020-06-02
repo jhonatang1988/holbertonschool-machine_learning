@@ -16,7 +16,7 @@ def optimize_model(network, alpha, beta1, beta2):
     :param beta2: the second Adam optimization parameter
     :return: None
     """
-    network.compile(optimizer=K.optimizers.Adam(learning_rate=alpha,
+    network.compile(optimizer=K.optimizers.Adam(lr=alpha,
                                                 beta_1=beta1,
                                                 beta_2=beta2),
                     loss=K.losses.CategoricalCrossentropy(

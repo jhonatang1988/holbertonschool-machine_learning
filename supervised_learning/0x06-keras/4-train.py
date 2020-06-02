@@ -26,11 +26,11 @@ def train_model(network, data, labels, batch_size, epochs, verbose=True,
     """
     # https://www.tensorflow.org/guide/keras/train_and_evaluate
 
-    network.fit(x=data,
-                y=labels,
-                batch_size=batch_size,
-                epochs=epochs,
-                verbose=verbose,
-                shuffle=shuffle)
+    history = network.fit(x=data,
+                          y=labels,
+                          batch_size=batch_size,
+                          epochs=epochs,
+                          verbose=verbose,
+                          shuffle=shuffle)
 
-    return None
+    return history
