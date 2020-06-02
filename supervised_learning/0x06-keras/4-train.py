@@ -25,6 +25,7 @@ def train_model(network, data, labels, batch_size, epochs, verbose=True,
     :return: the History object generated after training the model
     """
     # https://www.tensorflow.org/guide/keras/train_and_evaluate
+
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
