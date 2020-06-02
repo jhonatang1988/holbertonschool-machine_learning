@@ -10,8 +10,10 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     """
     builds a neural network with the Keras library
     :param nx: the number of input features to the network
-    :param layers: a list containing the number of nodes in each layer of the network
-    :param activations: a list containing the activation functions used for each layer of the network
+    :param layers: a list containing the number of nodes in each layer of the
+    network
+    :param activations: a list containing the activation functions used for
+    each layer of the network
     :param lambtha: the L2 regularization parameter
     :param keep_prob: the probability that a node will be kept for dropout
     :return: keras model
