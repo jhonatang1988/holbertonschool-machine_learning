@@ -4,7 +4,6 @@ trains a model using mini-batch gradient descent, also analyze validation data,
 and has early_stopping
 """
 import tensorflow.keras as K
-import numpy as np
 
 
 def train_model(network, data, labels, batch_size, epochs,
@@ -42,8 +41,7 @@ def train_model(network, data, labels, batch_size, epochs,
     # https://keras.io/api/optimizers/learning_rate_schedules/
     # the callbacks
     def scheduler(epoch):
-        return alpha / (1 + decay_rate * np.floor_divide(epoch,
-                                                         1))
+        return alpha / (1 + decay_rate * (epoch / 1))
 
     callbacks = None
     if early_stopping and validation_data:
