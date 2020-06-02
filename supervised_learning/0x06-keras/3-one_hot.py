@@ -9,7 +9,8 @@ def one_hot(labels, classes=None):
     """
     converts a label vector into a one-hot matrix
     :param labels: labels
-    :param classes: last dimension of the one-hot matrix must be the number of classes
+    :param classes: last dimension of the one-hot matrix must be the number
+    of classes
     :return: the one-hot matrix
     """
     return K.utils.to_categorical(y=labels,
