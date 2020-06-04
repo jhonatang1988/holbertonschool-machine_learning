@@ -19,27 +19,15 @@ def convolve_grayscale_valid(images, kernel):
     kw is the width of the kernel
     :return: numpy.ndarray containing the convolved images
     """
-    # https://stackoverflow.com/a/22341269/4101146
+    # https://stackoverflow.com/a/43087771/4101146
     conv_list = []
-    for image in images:
-        x = image
-        y = kernel
-        x_shape = np.array(x.shape)
-        y_shape = np.array(y.shape)
-        z_shape = x_shape + y_shape - 1
-        z = np.fft.ifft2(
-            np.fft.fft2(x, z_shape) * np.fft.fft2(y, z_shape)).real
+    for img in images:
+        a = img
+        f = kernel
+        s = f.shape + tuple(np.subtract(a.shape, f.shape) + 1)
+        strd = np.lib.stride_tricks.as_strided
+        subM = strd(a, shape=s, strides=a.strides * 2)
 
-        # To compute a valid shape, either np.all(x_shape >= y_shape) or
-        # np.all(y_shape >= x_shape).
-        valid_shape = x_shape - y_shape + 1
-        if np.any(valid_shape < 1):
-            valid_shape = y_shape - x_shape + 1
-            if np.any(valid_shape < 1):
-                raise ValueError("empty result for valid shape")
-        start = (z_shape - valid_shape) // 2
-        end = start + valid_shape
-        z = z[start[0]:end[0], start[1]:end[1]]
-        conv_list.append(z)
+        conv_list.append(np.einsum('ij,ijkl->kl', f, subM))
 
     return np.asarray(conv_list)
