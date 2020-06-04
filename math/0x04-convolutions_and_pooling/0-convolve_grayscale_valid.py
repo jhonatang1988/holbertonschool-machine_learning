@@ -45,6 +45,7 @@ def convolve_grayscale_valid(images, kernel):
             slc = (images[:, i:i + kh, j:j + kw]) * kernel
             # we have to get a number from result (matrix of matrices)
             slc = slc.sum(axis=1)
+            slc = slc.sum(axis=1)
             # once we get the numbers we are going to
             # store the numbers in the same position for
             # each image
