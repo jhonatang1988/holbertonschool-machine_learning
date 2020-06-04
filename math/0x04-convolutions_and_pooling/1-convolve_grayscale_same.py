@@ -35,7 +35,7 @@ def convolve_grayscale_same(images, kernel):
 
     padded_images = np.pad(images, ((0, 0), (pad_height, pad_height),
                                     (pad_width, pad_width)), 'constant')
-    Y = np.empty_like(images)
+    Y = np.zeros(images.shape)
     for i in range(Y.shape[1]):
         for j in range(Y.shape[2]):
             slc = (padded_images[:, i:i + kh, j:j + kw]) * kernel
