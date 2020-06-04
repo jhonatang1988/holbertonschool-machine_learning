@@ -30,4 +30,4 @@ def convolve_grayscale_valid(images, kernel):
 
         conv_list.append(np.einsum('ij,ijkl->kl', f, subM))
 
-    return np.asarray(conv_list)
+    return np.array(conv_list)
