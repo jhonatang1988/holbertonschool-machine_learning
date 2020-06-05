@@ -38,11 +38,11 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
             pad_height = int(((h * sh + kh - h) / 2) + 1)
             pad_width = int(((w * sw + kw - w) / 2) + 1)
 
-            # if kw % 2 != 0:
-            #     pad_width = int((((h - 1) * sh + kh - h) / 2) + 1)
-            #
-            # if kh % 2 != 0:
-            #     pad_height = int((((w - 1) * sw + kw - w) / 2) + 1)
+            if kw % 2 != 0:
+                pad_width = int((((h - 1) * sh + kh - h) / 2) + 1)
+
+            if kh % 2 != 0:
+                pad_height = int((((w - 1) * sw + kw - w) / 2) + 1)
         else:
             pad_height, pad_width = (0, 0)
 
@@ -50,8 +50,8 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
                                     (pad_width, pad_width)), 'constant')
 
     Y = np.zeros((m,
-                  (h - kh + 1 + 2 * pad_height) // sh,
-                  (w - kw + 1 + 2 * pad_width) // sw))
+                  ((h - kh + 2 * pad_height) // sh) + 1,
+                  ((w - kw + 2 * pad_width) // sw) + 1))
     for i in range(Y.shape[1]):
         for j in range(Y.shape[2]):
             slc = \
