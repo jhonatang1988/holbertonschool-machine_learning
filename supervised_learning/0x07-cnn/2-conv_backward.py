@@ -136,11 +136,11 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                             index_imagen, vertical_stride,
                             horizontal_stride, index_canal]
         
-        derivadas_de_activaciones[index_imagen] += derivada_de_la_imagen
-        
         if padding == 'same':
             derivadas_de_activaciones[index_imagen] += \
                 derivada_de_la_imagen[altura_padding: -altura_padding,
                 largo_padding:-largo_padding]
+        else:
+            derivadas_de_activaciones[index_imagen] += derivada_de_la_imagen
     
     return derivadas_de_activaciones, derivadas_de_filtros, derivadas_de_biases
