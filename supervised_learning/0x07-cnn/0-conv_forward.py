@@ -51,7 +51,16 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     if type(padding) is tuple:
         altura_padding, largo_padding = padding
     elif padding == 'same':
-        pass
+        altura_padding = int(
+            np.ceil(((altura_img - 1) * altura_stride + altura_filtro -
+                     altura_img) / 2
+                    )
+        )
+        largo_padding = int(
+            np.ceil(((largo_img - 1) * largo_stride + largo_filtro -
+                     largo_img) / 2
+                    )
+        )
     else:
         altura_padding, largo_padding = (0, 0)
     
