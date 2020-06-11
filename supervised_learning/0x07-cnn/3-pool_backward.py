@@ -32,7 +32,6 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
     Returns: the partial derivatives with respect to the previous layer (
     dA_prev)
     """
-    N, H, W, C = A_prev.shape
     H_P, W_P = kernel_shape
     SH, SW = stride
     
@@ -50,7 +49,8 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                     
                     if mode == 'max':
                         mask = (x_pool == np.max(x_pool))
-                        nocabe = dx[n, r * SH:r * SH + H_P,
+                        nocabe = dx[
+                                 n, r * SH:r * SH + H_P,
                                  c * SW: c * SW + W_P, depth]
                         nocabe += mask * dA[n, r, c, depth]
                     
