@@ -92,10 +92,16 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     # la misma mierda que los filtros, obveoo bobis
     derivadas_de_filtros = np.zeros(filtros.shape)
     
+    # por ultimo la derivada de los biases
+    derivadas_de_biases = np.sum(derivadas_parciales_layer_sin_activacion,
+                                 axis=(0, 1, 2),
+                                 keepdims=True)
+    
     # para cada imagen
     for index_imagen in range(num_imagenes_layer_previa):
         imagen = activaciones_con_padding[index_imagen]
-        derivada_de_la_imagen = derivadas_de_activaciones[index_imagen]
+        derivada_de_la_imagen = derivadas_de_activaciones_con_padding[
+            index_imagen]
         # moviendonos verticalmente
         for vertical_stride in range(altura_layer):
             # moviendonos horizontalmente
@@ -136,9 +142,5 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
             derivadas_de_activaciones[index_imagen] += \
                 derivada_de_la_imagen[altura_padding: -altura_padding,
                 largo_padding:-largo_padding]
-    
-    # por ultimo la derivada de los biases
-    derivadas_de_biases = np.sum(derivadas_de_activaciones, axis=(0, 1, 2),
-                                 keepdims=True)
     
     return derivadas_de_activaciones, derivadas_de_filtros, derivadas_de_biases
