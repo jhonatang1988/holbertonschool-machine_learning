@@ -25,7 +25,6 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     mode is a string containing either max or avg, indicating whether to
     perform
     maximum or average pooling, respectively
-    you may import numpy as np
     Returns: the output of the pooling layer
     """
     # tres paquetes para cada sample
