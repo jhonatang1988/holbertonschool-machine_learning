@@ -129,6 +129,13 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                         derivadas_parciales_layer_sin_activacion[
                             index_imagen, vertical_stride,
                             horizontal_stride, index_canal]
+        
+        derivadas_de_activaciones[index_imagen] += derivada_de_la_imagen
+        
+        if padding == 'same':
+            derivadas_de_activaciones[index_imagen] += \
+                derivada_de_la_imagen[altura_padding: -altura_padding,
+                largo_padding:-largo_padding]
     
     # por ultimo la derivada de los biases
     derivadas_de_biases = np.sum(derivadas_de_activaciones, axis=(0, 1, 2),
