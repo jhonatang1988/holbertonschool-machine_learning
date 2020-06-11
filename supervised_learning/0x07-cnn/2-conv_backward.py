@@ -36,6 +36,11 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     Returns: the partial derivatives with respect to the previous layer
     (dA_prev), the kernels (dW), and the biases (db), respectively
     """
+    # toda esta mierda para que no pep no haga complaint por no usar la
+    # variable
+    biases = b
+    if biases == 'hola':
+        pass
     # la parte de las derivadas, sin aplicar la activacion porque tambien
     # toca derivar por aparte la puta funcion de activacion
     derivadas_parciales_layer_sin_activacion = dZ
@@ -45,16 +50,14 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     # el layer previo OJO es el siguiente, pero vamos hacia el pasado.
     layer_previa = A_prev
     
-    num_imagenes_layer_previa, \
-    altura_layer_previa, \
-    largo_layer_previa, \
-    num_canales_layer_previa = layer_previa.shape
+    num_imagenes_layer_previa, altura_layer_previa, _, _ = layer_previa.shape
+    _, _, largo_layer_previa, num_canales_layer_previa = layer_previa.shape
     
     # los filtros tambien se derivan pero es mas como una convolution en
     # reversa segun los expertos
     filtros = W
-    altura_filtro, largo_filtro, num_canales_filtro_previa, \
-    num_canales_filtro_nuevo = filtros.shape
+    altura_filtro, largo_filtro, _, _ = filtros.shape
+    _, _, num_canales_filtro_previa, num_canales_filtro_nuevo = filtros.shape
     
     # el stride de toda la vida
     altura_stride, largo_stride = stride
@@ -138,7 +141,8 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         
         if padding == 'same':
             derivadas_de_activaciones[index_imagen] += \
-                derivada_de_la_imagen[altura_padding: -altura_padding,
+                derivada_de_la_imagen[
+                altura_padding: -altura_padding,
                 largo_padding:-largo_padding]
         else:
             derivadas_de_activaciones[index_imagen] += derivada_de_la_imagen
