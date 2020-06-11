@@ -6,7 +6,7 @@ import numpy as np
 
 """
 linea 89 = esa misma mierda se suma en todas las inner dimensions de
-un 4d, es decir, suma en 1, 2, y 3, pero no suma en la 0,
+un 4d, es decir, suma en 1, 2, y 3, pero no suma en la 0.,
 que seria la mas outer, que corresponde al numero de
 samples. OJO  la dimension mas inner es la mas ejemplo
 aqui es la 3. putamente contra intruitivo
