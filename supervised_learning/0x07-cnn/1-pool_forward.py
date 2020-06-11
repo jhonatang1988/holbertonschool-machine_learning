@@ -27,6 +27,8 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     maximum or average pooling, respectively
     Returns: the output of the pooling layer
     """
+    # https://leonardoaraujosantos.gitbooks.io/artificial-inteligence
+    # /content/pooling_layer.html
     # tres paquetes para cada sample
     imagenes = A_prev
     num_imagenes, altura_img, largo_img, num_canales_img = imagenes.shape
