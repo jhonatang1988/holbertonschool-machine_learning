@@ -28,12 +28,12 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     m, h_prev, w_prev, c_prev = A_prev.shape
     kh, kw = kernel_shape
     sh, sw = stride
-
+    
     # dims conv matrix
     pool_h = int(((h_prev - kh) / sh) + 1)
     pool_w = int(((w_prev - kw) / sw) + 1)
     pool = np.zeros((m, pool_h, pool_w, c_prev))
-
+    
     for i in range(pool_h):
         for j in range(pool_w):
             sth = i * sh
