@@ -59,7 +59,6 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
             
             if mode == 'avg':
                 nmeepdi = np.mean(pedacito_imagen, axis=(1, 2))
-            output[:, vertical_stride, horizontal_stride] = \
-                nmeepdi
+            output[:, vertical_stride, horizontal_stride] = nmeepdi
     
     return output
