@@ -36,12 +36,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     Returns: the partial derivatives with respect to the previous layer
     (dA_prev), the kernels (dW), and the biases (db), respectively
     """
-    # toda esta mierda para que no pep no haga complaint por no usar la
-    # variable
-    biases = b
-    if biases == 'hola':
-        pass
-    # la parte de las derivadas, sin aplicar la activacion porque tambien
+    # de las derivadas, sin aplicar la activacion porque tambien
     # toca derivar por aparte la puta funcion de activacion
     derivadas_parciales_layer_sin_activacion = dZ
     num_derivadas, altura_layer, largo_layer, num_canales_layer = \
