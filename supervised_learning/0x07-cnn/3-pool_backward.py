@@ -36,7 +36,6 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
     H_P, W_P = kernel_shape
     SH, SW = stride
     
-    dx = None
     dx = np.zeros(A_prev.shape)
     
     N, HH, WW, C = dA.shape
@@ -51,14 +50,16 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                     
                     if mode == 'max':
                         mask = (x_pool == np.max(x_pool))
-                        
-                        dx[n, r * SH:r * SH + H_P, c * SW: c * SW + W_P, depth] \
-                            += mask * dA[n, r, c, depth]
+                        nocabe = dx[n, r * SH:r * SH + H_P,
+                                 c * SW: c * SW + W_P, depth]
+                        nocabe += mask * dA[n, r, c, depth]
                     
                     if mode == 'avg':
                         mask = np.ones(x_pool.shape)
                         avg = dA[n, r, c, depth] / (H_P * W_P)
-                        dx[n, r * SH:r * SH + H_P, c * SW: c * SW + W_P, depth] \
-                            += mask * avg
-    
+                        nocabe = dx[
+                                 n, r * SH:r * SH + H_P,
+                                 c * SW: c * SW + W_P, depth]
+                        
+                        nocabe += mask * avg
     return dx
