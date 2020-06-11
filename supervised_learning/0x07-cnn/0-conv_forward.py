@@ -2,11 +2,15 @@
 """
 performs forward propagation over a convolutional layer of a neural network
 """
-# linea 89 = esa misma mierda se suma en todas las inner dimensions de
-# un 4d, es decir, suma en 1, 2, y 3, pero no suma en la 0,
-# que seria la mas outer, que corresponde al numero de
-# samples. OJO  la dimension mas inner es la mas ejemplo
-# aqui es la 3. putamente contra intruitivo
+import numpy as np
+
+"""
+linea 89 = esa misma mierda se suma en todas las inner dimensions de
+un 4d, es decir, suma en 1, 2, y 3, pero no suma en la 0,
+que seria la mas outer, que corresponde al numero de
+samples. OJO  la dimension mas inner es la mas ejemplo
+aqui es la 3. putamente contra intruitivo
+"""
 """
  :param A_prev: numpy.ndarray of shape (m, h_prev, w_prev, c_prev)
     containing the output of the previous layer
@@ -29,12 +33,12 @@ performs forward propagation over a convolutional layer of a neural network
     convolution
     :return: the output of the convolutional layer
 """
-import numpy as np
 
 
 def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
-    performs forward propagation over a convolutional layer of a neural network
+    performs forward propagation over a convolutional layer of a neural networ
+    k
     """
     # tres paquetes para cada sample
     imagenes = A_prev
