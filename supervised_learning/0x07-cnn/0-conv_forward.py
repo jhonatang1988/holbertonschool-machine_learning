@@ -32,10 +32,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     # tres paquetes para cada sample
     imagenes = A_prev
-    num_imagenes, \
-    altura_img, \
-    largo_img, \
-    num_canales_img = imagenes.shape
+    num_imagenes, altura_img, largo_img, num_canales_img = imagenes.shape
     
     # W se refiere al filtro
     filtros = W
@@ -48,24 +45,14 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     altura_stride, largo_stride = stride
     
     # para aplicar el padding correct
-    if type(padding) is tuple:
-        altura_padding, largo_padding = padding
-    elif padding == 'same':
+    if padding == 'same':
         altura_padding = int(
             ((altura_img * altura_stride + altura_filtro - altura_img) /
              2) + 1)
         largo_padding = int(
             ((largo_img * largo_stride + largo_filtro - largo_img) / 2)
             + 1)
-        
-        if largo_filtro % 2 != 0:
-            largo_padding = int((((altura_img - 1) * altura_stride +
-                                  altura_filtro - altura_img) / 2) + 1)
-        
-        if altura_filtro % 2 != 0:
-            altura_padding = int(
-                (((largo_img - 1) * largo_stride + largo_filtro
-                  - largo_img) / 2) + 1)
+    
     else:
         altura_padding, largo_padding = (0, 0)
     
@@ -86,9 +73,10 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     # ahora se aplica padding en los bordes, llenando de ceros la
     # informacion para que no se pierda la importancia de los bordes cuando
     # se hace convolution
-    imagenes_con_padding = np.pad(imagenes, ((0, 0), (0, 0), (altura_padding,
-                                                              altura_padding),
-                                             (largo_padding, largo_padding)),
+    imagenes_con_padding = np.pad(imagenes, ((0, 0), (altura_padding,
+                                                      altura_padding),
+                                             (largo_padding, largo_padding),
+                                             (0, 0)),
                                   'constant')
     
     # para cada stride moviendose verticalmente
@@ -117,7 +105,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                 
                 output[:, vertical_stride, horizontal_stride, filtro] = \
                     pipfsetld
-                
-                funcion_activacion = activation
-                
-                return funcion_activacion(output + b)
+    
+    funcion_activacion = activation
+    
+    return funcion_activacion(output + b)
