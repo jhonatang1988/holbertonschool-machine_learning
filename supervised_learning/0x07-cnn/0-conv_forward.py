@@ -32,7 +32,10 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     # tres paquetes para cada sample
     imagenes = A_prev
-    num_imagenes, altura_img, largo_img, num_canales_img = imagenes.shape
+    num_imagenes, \
+    altura_img, \
+    largo_img, \
+    num_canales_img = imagenes.shape
     
     # W se refiere al filtro
     filtros = W
@@ -45,14 +48,24 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     altura_stride, largo_stride = stride
     
     # para aplicar el padding correct
-    if padding == 'same':
+    if type(padding) is tuple:
+        altura_padding, largo_padding = padding
+    elif padding == 'same':
         altura_padding = int(
             ((altura_img * altura_stride + altura_filtro - altura_img) /
              2) + 1)
         largo_padding = int(
             ((largo_img * largo_stride + largo_filtro - largo_img) / 2)
             + 1)
-    
+        
+        if largo_filtro % 2 != 0:
+            largo_padding = int((((altura_img - 1) * altura_stride +
+                                  altura_filtro - altura_img) / 2) + 1)
+        
+        if altura_filtro % 2 != 0:
+            altura_padding = int(
+                (((largo_img - 1) * largo_stride + largo_filtro
+                  - largo_img) / 2) + 1)
     else:
         altura_padding, largo_padding = (0, 0)
     
