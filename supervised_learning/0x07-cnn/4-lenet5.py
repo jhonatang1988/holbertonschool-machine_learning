@@ -3,7 +3,6 @@
 builds a modified version of the LeNet-5 architecture using tensorflow
 """
 
-import numpy as np
 import tensorflow as tf
 
 
