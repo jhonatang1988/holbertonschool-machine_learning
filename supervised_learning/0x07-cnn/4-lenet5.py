@@ -60,7 +60,7 @@ def lenet5(x, y):
     :return:
     """
     # el initializer 3000
-    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    init = tf.contrib.layers.variance_scaling_initializer()
     
     # la mierda que recibe inputs
     primer_layer = tf.layers.Conv2D(filters=6, kernel_size=[5, 5],
@@ -78,7 +78,8 @@ def lenet5(x, y):
     # ahora vamos con otra puta convolutional
     tercer_layer = tf.layers.Conv2D(filters=16, kernel_size=[5, 5],
                                     padding='valid',
-                                    kernel_initializer=init, activation='relu')
+                                    kernel_initializer=init,
+                                    activation='relu')
     
     x = tercer_layer(x)
     
