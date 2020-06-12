@@ -107,10 +107,18 @@ def lenet5(x, y):
     
     x = septimo_layer(x)
     
-    # una ultima softmax
-    ultimo_layer = tf.layers.Dense(units=10, activation='softmax')
+    # una ultima capa sin activacion no se porque putas
+    # https://stackoverflow.com/questions/44540769/tensorflow-cnn-dense-
+    # layer-as-softmax-layer-input
+    # aqui recomiendan hacerlo aparte como si eso fuera chistoso, pero es
+    # porque la vieja quiere mostrar el resultado sin aplicarle el softmax para
+    # ver los numeritos feitos
+    ultimo_layer_sin_activacion = tf.layers.Dense(units=10,
+                                                  kernel_initializer=init)
     
-    x = ultimo_layer(x)
+    x = ultimo_layer_sin_activacion(x)
+    
+    ultimo_layer_con_softmax = tf.nn.softmax(x)
     
     # toca definir el loss para retornarlo
     loss = tf.losses.softmax_cross_entropy(y, x)
@@ -123,4 +131,4 @@ def lenet5(x, y):
     eq = tf.equal(pred, tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(eq, tf.float32))
     
-    return x, optimizer, loss, accuracy
+    return ultimo_layer_con_softmax, optimizer, loss, accuracy
