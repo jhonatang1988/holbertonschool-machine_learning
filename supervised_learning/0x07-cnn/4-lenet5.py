@@ -111,8 +111,8 @@ def lenet5(x, y):
     # https://stackoverflow.com/questions/44540769/tensorflow-cnn-dense-
     # layer-as-softmax-layer-input
     # aqui recomiendan hacerlo aparte como si eso fuera chistoso, pero es
-    # porque la vieja quiere mostrar el resultado sin aplicarle el softmax para
-    # ver los numeritos feitos
+    # porque la vieja quiere mostrar el resultado sin aplicarle el softmax
+    # para ver los numeritos feitos
     ultimo_layer_sin_activacion = tf.layers.Dense(units=10,
                                                   kernel_initializer=init)
     
