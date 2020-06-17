@@ -61,52 +61,52 @@ def lenet5(x, y):
     """
     # el initializer 3000
     init = tf.contrib.layers.variance_scaling_initializer()
-    
+
     # la mierda que recibe inputs
     primer_layer = tf.layers.Conv2D(filters=6, kernel_size=[5, 5],
                                     padding='same', kernel_initializer=init,
                                     activation='relu')
-    
+
     x = primer_layer(x)
-    
+
     # ahora vamos con un max poolincibiribiri
     segundo_layer = tf.layers.MaxPooling2D(pool_size=(2, 2),
                                            strides=(2, 2))
-    
+
     x = segundo_layer(x)
-    
+
     # ahora vamos con otra puta convolutional
     tercer_layer = tf.layers.Conv2D(filters=16, kernel_size=[5, 5],
                                     padding='valid',
                                     kernel_initializer=init,
                                     activation='relu')
-    
+
     x = tercer_layer(x)
-    
+
     # ahora vamos con otra piscina la mas chimba
     cuarto_layer = tf.layers.MaxPooling2D(pool_size=(2, 2),
                                           strides=(2, 2))
-    
+
     x = cuarto_layer(x)
-    
+
     # esta mierda es para pasar las imagenes a 1D porque la vaina no
     # funciona en otras dimensions
     quinto_layer = tf.layers.Flatten()
-    
+
     x = quinto_layer(x)
-    
+
     # ahora vamos con la vieja confiable de un fully connected - orgia total.
     sexto_layer = tf.layers.Dense(units=120, activation='relu',
                                   kernel_initializer=init)
-    
+
     x = sexto_layer(x)
-    
+
     # otra vieja confiable
     septimo_layer = tf.layers.Dense(units=84, activation='relu',
                                     kernel_initializer=init)
-    
+
     x = septimo_layer(x)
-    
+
     # una ultima capa sin activacion no se porque putas
     # https://stackoverflow.com/questions/44540769/tensorflow-cnn-dense-
     # layer-as-softmax-layer-input
@@ -115,20 +115,20 @@ def lenet5(x, y):
     # para ver los numeritos feitos
     ultimo_layer_sin_activacion = tf.layers.Dense(units=10,
                                                   kernel_initializer=init)
-    
+
     x = ultimo_layer_sin_activacion(x)
-    
+
     ultimo_layer_con_softmax = tf.nn.softmax(x)
-    
+
     # toca definir el loss para retornarlo
     loss = tf.losses.softmax_cross_entropy(y, x)
-    
+
     # como se optimiza la enseñanza del bb
     optimizer = tf.train.AdamOptimizer().minimize(loss)
-    
+
     # el accuracy
     pred = tf.argmax(x, 1)
     eq = tf.equal(pred, tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(eq, tf.float32))
-    
+
     return ultimo_layer_con_softmax, optimizer, loss, accuracy
