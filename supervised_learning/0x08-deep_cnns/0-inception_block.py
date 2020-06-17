@@ -32,6 +32,8 @@ def inception_block(A_prev, filters):
         activation='relu', padding='same', kernel_initializer=init
     )
 
+    to_concatenate_A = non_linear_1_1_A(A_prev)
+
     # esta convolution coge inputs pero va a otra convolution de 3x3
     non_linear_1_1_B = K.layers.Conv2D(
         filters=F3R, kernel_size=(1, 1),
@@ -39,20 +41,18 @@ def inception_block(A_prev, filters):
         kernel_initializer=init
     )
 
-    to_conv_A = non_linear_1_1_B(A_prev)
-
-    # esta convolution coge inputs pero va a otra convolution de 5x5
-    non_linear_1_1_C = K.layers.Conv2D(
-        filters=F5R, kernel_size=(1, 1),
+    # esta convolution coge el input de la 1x1 convolution
+    non_linear_1_1_E = K.layers.Conv2D(
+        filters=F3, kernel_size=(1, 1),
         activation='relu', padding='same',
         kernel_initializer=init
     )
 
-    to_conv_B = non_linear_1_1_C(A_prev)
+    to_concatenate_B = non_linear_1_1_E(non_linear_1_1_B(A_prev))
 
-    # esta convolution coge el input de la 1x1 convolution
-    non_linear_1_1_E = K.layers.Conv2D(
-        filters=F3, kernel_size=(1, 1),
+    # esta convolution coge inputs pero va a otra convolution de 5x5
+    non_linear_1_1_C = K.layers.Conv2D(
+        filters=F5R, kernel_size=(1, 1),
         activation='relu', padding='same',
         kernel_initializer=init
     )
@@ -63,12 +63,12 @@ def inception_block(A_prev, filters):
         kernel_initializer=init
     )
 
+    to_concatenate_C = non_linear_1_1_F(non_linear_1_1_C(A_prev))
+
     # esta max pooling coge inputs pero va a una convolution de 1x1
     linear_pool = K.layers.MaxPooling2D(
         pool_size=(3, 3), strides=(1, 1), padding='same'
     )
-
-    to_conv_C = linear_pool(A_prev)
 
     non_linear_1_1_G = K.layers.Conv2D(
         filters=FPP, kernel_size=(1, 1),
@@ -76,10 +76,7 @@ def inception_block(A_prev, filters):
         kernel_initializer=init
     )
 
-    to_concatenate_A = non_linear_1_1_A(A_prev)
-    to_concatenate_B = non_linear_1_1_E(to_conv_A)
-    to_concatenate_C = non_linear_1_1_F(to_conv_B)
-    to_concatenate_D = non_linear_1_1_G(to_conv_C)
+    to_concatenate_D = non_linear_1_1_G(linear_pool(A_prev))
 
     concatenate_all = K.layers.concatenate([
         to_concatenate_A,
