@@ -8,7 +8,8 @@ import tensorflow.keras as K
 
 def inception_block(A_prev, filters):
     """
-    that builds an inception block as described in Going Deeper with Convolutions
+    that builds an inception block as described in Going Deeper with
+    Convolutions
     :param A_prev: is the output from the previous layer
     :param filters: is a tuple or list containing F1, F3R, F3,F5R, F5, FPP,
     respectively:
@@ -56,7 +57,8 @@ def inception_block(A_prev, filters):
     # esta max pooling coge inputs pero va a una convolution de 1x1
     linear_pool = K.layers.MaxPooling2D(
         pool_size=(3, 3),
-        strides=(2, 2)
+        strides=(1, 1),
+        padding='same'
     )
     
     to_conv_C = linear_pool(A_prev)
