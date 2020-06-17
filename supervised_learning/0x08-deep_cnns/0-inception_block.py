@@ -36,7 +36,8 @@ def inception_block(A_prev, filters):
     # esta convolution coge inputs pero va a otra convolution de 3x3
     non_linear_1_1_B = K.layers.Conv2D(
         filters=F3R, kernel_size=[1, 1],
-        activation='relu', padding='same'
+        activation='relu', padding='same',
+        kernel_initializer=init
     )
     
     to_conv_A = non_linear_1_1_B(A_prev)
@@ -44,7 +45,8 @@ def inception_block(A_prev, filters):
     # esta convolution coge inputs pero va a otra convolution de 5x5
     non_linear_1_1_C = K.layers.Conv2D(
         filters=F5R, kernel_size=[1, 1],
-        activation='relu', padding='same'
+        activation='relu', padding='same',
+        kernel_initializer=init
     )
     
     to_conv_B = non_linear_1_1_C(A_prev)
@@ -60,20 +62,23 @@ def inception_block(A_prev, filters):
     non_linear_1_1_E = K.layers.Conv2D(
         filters=F3, kernel_size=[3, 3],
         activation='relu', padding='same',
+        kernel_initializer=init
     )
     
     to_concatenate_B = non_linear_1_1_E(to_conv_A)
     
     non_linear_1_1_F = K.layers.Conv2D(
         filters=F5, kernel_size=[5, 5],
-        activation='relu', padding='same'
+        activation='relu', padding='same',
+        kernel_initializer=init
     )
     
     to_concatenate_C = non_linear_1_1_F(to_conv_B)
     
     non_linear_1_1_G = K.layers.Conv2D(
         filters=FPP, kernel_size=[1, 1],
-        activation='relu', padding='same'
+        activation='relu', padding='same',
+        kernel_initializer=init
     )
     
     to_concatenate_D = non_linear_1_1_G(to_conv_C)
