@@ -36,7 +36,6 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
 	altura_filtro, largo_filtro = kernel_shape
 	# stride se refiere a pasos
 	altura_stride, largo_stride = stride
-
 	# se calcula el tamano del output y se inicializa
 	altura_output = int(
 		((altura_img - altura_filtro) / altura_stride) + 1)
@@ -44,7 +43,6 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
 		((largo_img - largo_filtro) / largo_stride) + 1)
 	output = np.zeros(
 		(num_imagenes, altura_output, largo_output, num_canales_img))
-
 	# para cada stride moviendose verticalmente
 	for vertical_stride in range(altura_output):
 		# para cada stride moviendose horizontalmente
@@ -57,9 +55,7 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
 			pedacito_imagen = imagenes[:, va:vaa, hl:hll]
 			# el pooling como tal - numero_maximo_en_el_pedacito_de_imagen
 			nmeepdi = np.max(pedacito_imagen, axis=(1, 2))
-
 			if mode == 'avg':
 				nmeepdi = np.mean(pedacito_imagen, axis=(1, 2))
 			output[:, vertical_stride, horizontal_stride] = nmeepdi
-
 	return output
