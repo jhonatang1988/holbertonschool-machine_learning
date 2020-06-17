@@ -23,65 +23,82 @@ def inception_block(A_prev, filters):
     FPP is the number of filters in the 1x1 convolution after the max pooling
     :return: the concatenated output of the inception block
     """
-    F1, F3R, F3, F5R, F5, FPP = filters
     init = K.initializers.he_normal()
+    F1, F3R, F3, F5R, F5, FPP = filters
 
     # esta convolution va directo entre inputs y outputs
     non_linear_1_1_A = K.layers.Conv2D(
-        filters=F1, kernel_size=(1, 1),
-        activation='relu', padding='same', kernel_initializer=init
+        filters=F1,
+        kernel_size=[1, 1],
+        kernel_initializer=init,
+        activation='relu',
+        padding='same'
     )
-
     to_concatenate_A = non_linear_1_1_A(A_prev)
 
     # esta convolution coge inputs pero va a otra convolution de 3x3
     non_linear_1_1_B = K.layers.Conv2D(
-        filters=F3R, kernel_size=(1, 1),
-        activation='relu', padding='same',
-        kernel_initializer=init
+        filters=F3R,
+        kernel_size=[1, 1],
+        activation='relu',
+        kernel_initializer=init,
     )
 
-    # esta convolution coge el input de la 1x1 convolution
-    non_linear_1_1_E = K.layers.Conv2D(
-        filters=F3, kernel_size=(1, 1),
-        activation='relu', padding='same',
-        kernel_initializer=init
-    )
-
-    to_concatenate_B = non_linear_1_1_E(non_linear_1_1_B(A_prev))
+    to_conv_A = non_linear_1_1_B(A_prev)
 
     # esta convolution coge inputs pero va a otra convolution de 5x5
     non_linear_1_1_C = K.layers.Conv2D(
-        filters=F5R, kernel_size=(1, 1),
-        activation='relu', padding='same',
-        kernel_initializer=init
+        filters=F5R,
+        kernel_size=[1, 1],
+        activation='relu',
+        kernel_initializer=init,
     )
 
-    non_linear_1_1_F = K.layers.Conv2D(
-        filters=F5, kernel_size=(1, 1),
-        activation='relu', padding='same',
-        kernel_initializer=init
-    )
-
-    to_concatenate_C = non_linear_1_1_F(non_linear_1_1_C(A_prev))
+    to_conv_B = non_linear_1_1_C(A_prev)
 
     # esta max pooling coge inputs pero va a una convolution de 1x1
     linear_pool = K.layers.MaxPooling2D(
-        pool_size=(3, 3), strides=(1, 1), padding='same'
+        pool_size=(3, 3),
+        strides=(1, 1),
+        padding='same'
     )
+
+    to_conv_C = linear_pool(A_prev)
+
+    # esta convolution coge el input de la 1x1 convolution
+    non_linear_1_1_E = K.layers.Conv2D(
+        filters=F3,
+        kernel_size=[3, 3],
+        activation='relu',
+        padding='same',
+        kernel_initializer=init,
+    )
+
+    to_concatenate_B = non_linear_1_1_E(to_conv_A)
+
+    non_linear_1_1_F = K.layers.Conv2D(
+        filters=F5,
+        kernel_size=[5, 5],
+        activation='relu',
+        padding='same',
+        kernel_initializer=init,
+    )
+
+    to_concatenate_C = non_linear_1_1_F(to_conv_B)
 
     non_linear_1_1_G = K.layers.Conv2D(
-        filters=FPP, kernel_size=(1, 1),
-        activation='relu', padding='same',
-        kernel_initializer=init
+        filters=FPP,
+        kernel_size=[1, 1],
+        activation='relu',
+        padding='same',
+        kernel_initializer=init,
     )
 
-    to_concatenate_D = non_linear_1_1_G(linear_pool(A_prev))
+    to_concatenate_D = non_linear_1_1_G(to_conv_C)
 
-    concatenate_all = K.layers.concatenate([
-        to_concatenate_A,
-        to_concatenate_B,
-        to_concatenate_C,
-        to_concatenate_D])
+    concatenate_all = K.layers.concatenate([to_concatenate_A,
+                                            to_concatenate_B,
+                                            to_concatenate_C,
+                                            to_concatenate_D])
 
     return concatenate_all
