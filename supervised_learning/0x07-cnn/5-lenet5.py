@@ -68,7 +68,7 @@ def lenet5(X):
     Y_pred = ultimo_layer_con_activacion(Y_pred)
 
     model = K.models.Model(inputs=X, outputs=Y_pred)
-    
+
     model.compile(loss='categorical_crossentropy',
                   optimizer=K.optimizers.Adam(),
                   metrics=['accuracy'])
