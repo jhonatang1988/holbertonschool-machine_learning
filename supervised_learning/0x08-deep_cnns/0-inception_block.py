@@ -23,8 +23,8 @@ def inception_block(A_prev, filters):
     FPP is the number of filters in the 1x1 convolution after the max pooling
     :return: the concatenated output of the inception block
     """
-    init = K.initializers.he_normal()
     F1, F3R, F3, F5R, F5, FPP = filters
+    init = K.initializers.he_normal()
 
     # esta convolution va directo entre inputs y outputs
     non_linear_1_1_A = K.layers.Conv2D(
@@ -50,13 +50,6 @@ def inception_block(A_prev, filters):
 
     to_conv_B = non_linear_1_1_C(A_prev)
 
-    # esta max pooling coge inputs pero va a una convolution de 1x1
-    linear_pool = K.layers.MaxPooling2D(
-        pool_size=(3, 3), strides=(1, 1), padding='same'
-    )
-
-    to_conv_C = linear_pool(A_prev)
-
     # esta convolution coge el input de la 1x1 convolution
     non_linear_1_1_E = K.layers.Conv2D(
         filters=F3, kernel_size=[3, 3],
@@ -69,6 +62,13 @@ def inception_block(A_prev, filters):
         activation='relu', padding='same',
         kernel_initializer=init
     )
+
+    # esta max pooling coge inputs pero va a una convolution de 1x1
+    linear_pool = K.layers.MaxPooling2D(
+        pool_size=(3, 3), strides=(1, 1), padding='same'
+    )
+
+    to_conv_C = linear_pool(A_prev)
 
     non_linear_1_1_G = K.layers.Conv2D(
         filters=FPP, kernel_size=[1, 1],
