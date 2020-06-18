@@ -75,7 +75,7 @@ def inception_network():
 
     # inception_block 1 [128, 128, 192, 32, 32, 64]
     concatenate_1 = inception_block(concatenate,
-                                    [128, 128, 192, 32, 32, 64])
+                                    [128, 128, 192, 32, 96, 64])
 
     # MaxPool 3x3+2(S)
     max_pooling2d_4_ = K.layers.MaxPooling2D(
