@@ -89,7 +89,7 @@ def identity_block(A_prev, filters):
 
     batch_normalization_2 = batch_normalization_2_(conv2d_2)
 
-    # Add layer
+    # Add layer.
     # https://keras.io/api/layers/merging_layers/add/
     add_ = K.layers.Add()
 
