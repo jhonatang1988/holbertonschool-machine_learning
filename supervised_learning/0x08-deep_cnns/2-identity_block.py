@@ -92,7 +92,7 @@ def identity_block(A_prev, filters):
     # https://keras.io/api/layers/merging_layers/add/
     add_ = K.layers.Add()
 
-    add = add_([A_prev, batch_normalization_2])
+    add = add_([batch_normalization_2, A_prev])
 
     # activation layer using relu
     activation_2_ = K.layers.Activation(
