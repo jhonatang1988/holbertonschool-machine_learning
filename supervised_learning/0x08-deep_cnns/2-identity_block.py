@@ -29,7 +29,6 @@ def identity_block(A_prev, filters):
         kernel_size=[1, 1],
         kernel_initializer=init,
         padding='same',
-        strides=(1, 1)
     )
 
     conv2d = conv2d_(A_prev)
@@ -54,7 +53,6 @@ def identity_block(A_prev, filters):
         kernel_size=[3, 3],
         kernel_initializer=init,
         padding='same',
-        strides=(1, 1)
     )
 
     conv2d_1 = conv2d_1_(activation)
@@ -79,7 +77,6 @@ def identity_block(A_prev, filters):
         kernel_size=[1, 1],
         kernel_initializer=init,
         padding='same',
-        strides=(1, 1)
     )
 
     conv2d_2 = conv2d_2_(activation_1)
