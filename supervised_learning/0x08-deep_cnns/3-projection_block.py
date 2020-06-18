@@ -1,35 +1,39 @@
 #!/usr/bin/env python3
 """
-builds an identity block as described in Deep Residual Learning for Image
-Recognition (2015)
+builds a projection block as described in
+Deep Residual Learning for Image Recognition (2015)
 https://arxiv.org/pdf/1512.03385.pdf
 """
+
 import tensorflow.keras as K
 
 
-def identity_block(A_prev, filters):
+def projection_block(A_prev, filters, s=2):
     """
-    builds an identity block as described in Deep Residual Learning for Image
-    :param A_prev: the output from the previous layer
+    builds a projection block as described in
+    Deep Residual Learning for Image Recognition (2015)
+    :param A_prev: output from the previous layer
     :param filters: a tuple or list containing F11, F3, F12, respectively:
     F11 is the number of filters in the first 1x1 convolution
     F3 is the number of filters in the 3x3 convolution
-    F12 is the number of filters in the second 1x1 convolution
-    :return: the activated output of the identity block
+    F12 is the number of filters in the second 1x1 convolution as well as the
+    1x1 convolution in the shortcut connection
+    :param s: the stride of the first convolution in both the main path and the shortcut connection
+    :return:
     """
-    # left side of the image
-    # https://www.dropbox.com/s/ydsblgks4ce2073/
-    # Identity%20Block%20resnet.png?dl=0
-    F11, F3, F12 = filters
+    # graphic for humans
+    # https://www.dropbox.com/s/lb4ivi7wtxwcsgb
+    # /Projection%20Block%20resnet.png?dl=0
 
     init = K.initializers.he_normal()
-
-    # conv2d 1x1 + 1(S)
+    F11, F3, F12 = filters
+    # conv2d 1x1 + 2(S)
     conv2d_ = K.layers.Conv2D(
         filters=F11,
         kernel_size=[1, 1],
         kernel_initializer=init,
         padding='same',
+        strides=(s, s)
     )
 
     conv2d = conv2d_(A_prev)
@@ -89,11 +93,29 @@ def identity_block(A_prev, filters):
 
     batch_normalization_2 = batch_normalization_2_(conv2d_2)
 
+    # conv 1x1 + 1(S) - this is for the shortcut
+    conv2d_3_ = K.layers.Conv2D(
+        filters=F12,
+        kernel_size=[1, 1],
+        kernel_initializer=init,
+        padding='same',
+        strides=(s, s)
+    )
+
+    conv2d_3 = conv2d_3_(A_prev)
+
+    # batch_normalization
+    batch_normalization_3_ = K.layers.BatchNormalization(
+        axis=-1,
+    )
+
+    batch_normalization_3 = batch_normalization_3_(conv2d_3)
+
     # Add layer
     # https://keras.io/api/layers/merging_layers/add/
     add_ = K.layers.Add()
 
-    add = add_([batch_normalization_2, A_prev])
+    add = add_([batch_normalization_2, batch_normalization_3])
 
     # activation layer using relu
     activation_2_ = K.layers.Activation(
