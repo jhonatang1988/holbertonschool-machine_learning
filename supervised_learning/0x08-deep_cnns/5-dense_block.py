@@ -9,7 +9,8 @@ import tensorflow.keras as K
 
 def dense_block(X, nb_filters, growth_rate, layers):
     """
-    builds a dense block as described in Densely Connected Convolutional Networks
+    builds a dense block as described in Densely Connected Convolutional
+    Networks
     :param X: the output from the previous layer
     :param nb_filters: is an integer representing the number of filters in X
     :param growth_rate: is the growth rate for the dense block
