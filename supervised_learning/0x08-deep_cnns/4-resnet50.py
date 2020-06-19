@@ -44,9 +44,9 @@ def resnet50():
     for Image Recognition (2015)
     :return: the keras model
     """
-    # init = K.initializers.he_normal()
-    # input_1 = K.Input(shape=(224, 224, 3))
-    #
+    init = K.initializers.he_normal()
+    input_1 = K.Input(shape=(224, 224, 3))
+
     # conv2d_ = K.layers.Conv2D(
     #     filters=64,
     #     kernel_initializer=init,
@@ -63,38 +63,31 @@ def resnet50():
     # )
     #
     # batch_normalization = batch_normalization_(conv2d)
-    #
+
+    # first conv with batch_norm and activaiton
+    conv1 = K.layers.Conv2D(filters=64, kernel_size=(7, 7),
+                            padding='same', strides=(2, 2),
+                            kernel_initializer=init)(input_1)
+    norm1 = K.layers.BatchNormalization(axis=3)(conv1)
+    X1 = K.layers.Activation('relu')(norm1)
+
     # # activation layer using relu
     # activation_ = K.layers.Activation(
     #     activation='relu'
     # )
     #
     # activation = activation_(batch_normalization)
-    #
-    # # maxpoling
-    # max_pooling2d_ = K.layers.MaxPooling2D(
-    #     pool_size=(3, 3), strides=(2, 2), padding='same'
-    # )
-    #
-    # max_pooling2d = max_pooling2d_(activation)
 
-    X = K.Input(shape=(224, 224, 3))
-    lay_init = K.initializers.he_normal()
+    # maxpoling
+    max_pooling2d_ = K.layers.MaxPooling2D(
+        pool_size=(3, 3), strides=(2, 2), padding='same'
+    )
 
-    # first conv with batch_norm and activaiton
-    conv1 = K.layers.Conv2D(filters=64, kernel_size=(7, 7),
-                            padding='same', strides=(2, 2),
-                            kernel_initializer=lay_init)(X)
-    norm1 = K.layers.BatchNormalization(axis=3)(conv1)
-    X1 = K.layers.Activation('relu')(norm1)
-
-    # first Maxpooling
-    mxpool1 = K.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2),
-                                    padding="same")(X1)
+    max_pooling2d = max_pooling2d_(X1)
 
     # primer bloque: cada bloque es un projection al principio y un numero
     # de identityBlock determinado. (1 projection_block + 2 identity_block)
-    activation_3 = projection_block(mxpool1, [64, 64, 256], 1)
+    activation_3 = projection_block(max_pooling2d, [64, 64, 256], 1)
     activation_6 = identity_block(activation_3, [64, 64, 256])
     activation_9 = identity_block(activation_6, [64, 64, 256])
 
@@ -129,11 +122,11 @@ def resnet50():
     # non linear Fully connected
     dense_ = K.layers.Dense(
         units=1000,
-        kernel_initializer=lay_init,
+        kernel_initializer=init,
         activation='softmax',
     )
     dense = dense_(average_pooling2d)
 
-    model = K.models.Model(inputs=X, outputs=dense)
+    model = K.models.Model(inputs=input_1, outputs=dense)
 
     return model
