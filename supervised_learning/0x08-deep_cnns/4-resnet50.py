@@ -47,16 +47,16 @@ def resnet50():
     init = K.initializers.he_normal()
     input_1 = K.Input(shape=(224, 224, 3))
 
-    # conv2d_ = K.layers.Conv2D(
-    #     filters=64,
-    #     kernel_initializer=init,
-    #     activation='relu',
-    #     kernel_size=(7, 7),
-    #     strides=(2, 2),
-    #     padding='same'
-    # )
-    # conv2d = conv2d_(input_1)
-    #
+    conv2d_ = K.layers.Conv2D(
+        filters=64,
+        kernel_initializer=init,
+        activation='relu',
+        kernel_size=(7, 7),
+        strides=(2, 2),
+        padding='same'
+    )
+    conv2d = conv2d_(input_1)
+
     # # batch_normalization
     # batch_normalization_ = K.layers.BatchNormalization(
     #     axis=-3,
@@ -64,26 +64,20 @@ def resnet50():
     #
     # batch_normalization = batch_normalization_(conv2d)
 
-    # first conv with batch_norm and activaiton
-    conv1 = K.layers.Conv2D(filters=64, kernel_size=(7, 7),
-                            padding='same', strides=(2, 2),
-                            kernel_initializer=init)(input_1)
-    norm1 = K.layers.BatchNormalization(axis=3)(conv1)
-    X1 = K.layers.Activation('relu')(norm1)
+    norm1 = K.layers.BatchNormalization(axis=3)(conv2d)
+    # activation layer using relu
+    activation_ = K.layers.Activation(
+        activation='relu'
+    )
 
-    # # activation layer using relu
-    # activation_ = K.layers.Activation(
-    #     activation='relu'
-    # )
-    #
-    # activation = activation_(batch_normalization)
+    activation = activation_(norm1)
 
-    # maxpoling
+    # max_poling
     max_pooling2d_ = K.layers.MaxPooling2D(
         pool_size=(3, 3), strides=(2, 2), padding='same'
     )
 
-    max_pooling2d = max_pooling2d_(X1)
+    max_pooling2d = max_pooling2d_(activation)
 
     # primer bloque: cada bloque es un projection al principio y un numero
     # de identityBlock determinado. (1 projection_block + 2 identity_block)
