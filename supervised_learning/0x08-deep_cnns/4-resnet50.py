@@ -57,22 +57,21 @@ def resnet50():
     )
     conv2d = conv2d_(input_1)
 
-    # # batch_normalization
-    # batch_normalization_ = K.layers.BatchNormalization(
-    #     axis=-3,
-    # )
-    #
-    # batch_normalization = batch_normalization_(conv2d)
+    # batch_normalization
+    batch_normalization_ = K.layers.BatchNormalization(
+        axis=-1,
+    )
 
-    norm1 = K.layers.BatchNormalization(axis=3)(conv2d)
+    batch_normalization = batch_normalization_(conv2d)
+
     # activation layer using relu
     activation_ = K.layers.Activation(
         activation='relu'
     )
 
-    activation = activation_(norm1)
+    activation = activation_(batch_normalization)
 
-    # max_poling
+    # maxpoling
     max_pooling2d_ = K.layers.MaxPooling2D(
         pool_size=(3, 3), strides=(2, 2), padding='same'
     )
