@@ -59,7 +59,7 @@ def resnet50():
 
     # batch_normalization
     batch_normalization_ = K.layers.BatchNormalization(
-        axis=-1,
+        axis=-3,
     )
 
     batch_normalization = batch_normalization_(conv2d)
@@ -105,21 +105,30 @@ def resnet50():
 
     # AveragePool 7x7+1(V)
     # https://keras.io/api/layers/pooling_layers/average_pooling2d/
-    average_pooling2d_ = K.layers.AveragePooling2D(
-        pool_size=(7, 7),
-        strides=(1, 1)
-    )
+    # average_pooling2d_ = K.layers.AveragePooling2D(
+    #     pool_size=(7, 7),
+    #     strides=(1, 1)
+    # )
+    #
+    # average_pooling2d = average_pooling2d_(activation_48)
+    #
+    # # non linear Fully connected
+    # dense_ = K.layers.Dense(
+    #     units=1000,
+    #     kernel_initializer=init,
+    #     activation='softmax',
+    # )
+    # dense = dense_(average_pooling2d)
+    #
+    # model = K.models.Model(inputs=input_1, outputs=dense)
+    #
+    # return model
 
-    average_pooling2d = average_pooling2d_(activation_48)
+    avgpool = K.layers.AveragePooling2D(pool_size=(7, 7),
+                                        strides=(1, 1))(activation_48)
 
-    # non linear Fully connected
-    dense_ = K.layers.Dense(
-        units=1000,
-        kernel_initializer=init,
-        activation='softmax',
-    )
-    dense = dense_(average_pooling2d)
+    FC = K.layers.Dense(units=1000, activation='softmax',
+                        kernel_initializer=init)(avgpool)
 
-    model = K.models.Model(inputs=input_1, outputs=dense)
-
+    model = K.models.Model(inputs=input_1, outputs=FC)
     return model
