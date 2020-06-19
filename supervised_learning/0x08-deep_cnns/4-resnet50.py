@@ -47,14 +47,14 @@ def resnet50():
     init = K.initializers.he_normal()
     input_1 = K.Input(shape=(224, 224, 3))
 
-    conv2d = K.layers.Conv2D(
+    conv2d_ = K.layers.Conv2D(
         filters=64,
         kernel_initializer=init,
-        activation='relu',
         kernel_size=(7, 7),
         strides=(2, 2),
         padding='same'
-    )(input_1)
+    )
+    conv2d = conv2d_(input_1)
 
     # batch_normalization
     batch_normalization_ = K.layers.BatchNormalization(
